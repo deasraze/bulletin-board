@@ -1,0 +1,9 @@
+FROM php:7.4.16-cli
+
+RUN apt-get update && apt-get install -y libmcrypt-dev \
+    && docker-php-ext-install pdo_mysql pcntl \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /var/www
+
+USER "${USER_ID}:${GROUP_ID}"

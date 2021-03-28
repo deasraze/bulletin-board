@@ -1,0 +1,10 @@
+/.idea
+/.git
+.env
+.env.backup
+/phpunit.xml
+/node_modules/
+/vendor/
+npm-debug.log
+yarn-error.log
+.php_cs.cache
