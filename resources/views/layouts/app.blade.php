@@ -78,6 +78,7 @@
 
 <main class="py-4 app-content">
     <div class="container">
+        @section('breadcrumbs', Breadcrumbs::render())
         @yield('breadcrumbs')
         @include('layouts.partials.flash')
         @yield('content')
