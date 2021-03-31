@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Cabinet\HomeController as CabinetHomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,8 +15,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 
-Route::get('/cabinet', [App\Http\Controllers\Cabinet\HomeController::class, 'index'])->name('cabinet');
+Route::get('/verify/{token}', [RegisterController::class, 'verify'])->name('register.verify');
+
+Route::get('/cabinet', [CabinetHomeController::class, 'index'])->name('cabinet');
