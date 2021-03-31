@@ -10,7 +10,7 @@
  */
 
 
-namespace App\Models{
+namespace App\Entity{
 /**
  * App\Models\User
  *
