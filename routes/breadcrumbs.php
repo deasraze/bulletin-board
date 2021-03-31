@@ -34,3 +34,9 @@
      $trail->parent('home');
      $trail->push('Cabinet', route('cabinet'));
  });
+
+ // Home > Admin
+ Breadcrumbs::for('admin.home', function ($trail) {
+     $trail->parent('home');
+     $trail->push('Admin', route('admin.home'));
+ });
