@@ -3,7 +3,6 @@
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Cabinet\HomeController as CabinetHomeController;
-use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,10 +28,11 @@ Route::group(
     [
         'prefix' => 'admin',
         'as' => 'admin.',
-        'namespace' => 'Admin',
+        'namespace' => 'App\\Http\\Controllers\\Admin',
         'middleware' => ['auth'],
     ],
     function () {
-        Route::get('/', [AdminHomeController::class, 'index'])->name('home');
+        Route::get('/', 'HomeController@index')->name('home');
+        Route::resource('users', 'UsersController');
     }
 );
