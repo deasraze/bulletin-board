@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Entity;
 
 use App\Entity\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -22,12 +22,15 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $active = $this->faker->boolean;
+
         return [
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
-            'status' => User::STATUS_ACTIVE,
+            'verify_token' =>  $active ? null : Str::uuid(),
+            'status' => $active ? User::STATUS_ACTIVE : User::STATUS_WAIT,
         ];
     }
 }
