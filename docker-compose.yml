@@ -24,6 +24,7 @@ services:
     container_name: app
     environment:
       DB_HOST: mysql
+      DB_PORT: 3306
     volumes:
       - ./:/var/www
     depends_on:
@@ -40,6 +41,7 @@ services:
     container_name: php-cli
     environment:
       DB_HOST: mysql
+      DB_PORT: 3306
     volumes:
       - ./:/var/www
     depends_on:
