@@ -29,3 +29,6 @@ assets-watch:
 
 migrations:
 	docker-compose run --rm php-cli php artisan migrate
+
+test:
+	docker-compose run --rm php-cli php vendor/bin/phpunit
