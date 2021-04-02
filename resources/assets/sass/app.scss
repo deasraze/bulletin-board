@@ -19,6 +19,17 @@ body {
     flex: 1;
 }
 
+.btn-success {
+    color: #fff;
+    background-color: #36b138;
+    border-color: #36b138;
+}
+
+.btn-success:hover {
+    background-color: #32a034;
+    border-color: #32a034;
+}
+
 .table th, .table td {
     padding: 0.55rem 0.75rem;
 }
