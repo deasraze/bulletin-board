@@ -3,7 +3,7 @@
 @section('content')
     @include('admin.users._nav')
 
-    <p><a href="{{ route('admin.users.create') }}" class="btn btn-primary">Add User</a></p>
+    <p><a href="{{ route('admin.users.create') }}" class="btn btn-success">Add User</a></p>
 
     <div class="card mb-3">
         <div class="card-header">Filter</div>
