@@ -28,5 +28,7 @@
 
     <p><a href="{{ route('admin.regions.create', ['parent' => $region->id]) }}" class="btn btn-success">Add SubRegion</a></p>
 
-    @include('admin.regions._list', ['regions' => $regions])
+    @if(count($regions) !== 0)
+        @include('admin.regions._list', ['regions' => $regions])
+    @endif
 @endsection
