@@ -55,7 +55,12 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        return view('admin.users.edit', compact('user'));
+        $roles = [
+            User::ROLE_ADMIN => 'Admin',
+            User::ROLE_USER => 'User',
+        ];
+
+        return view('admin.users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -64,6 +69,10 @@ class UsersController extends Controller
     public function update(UpdateRequest $request, User $user)
     {
         $user->update($request->only(['name', 'email']));
+        
+        if ($user->role !== $request['role']) {
+            $user->changeRole($request['role']);
+        }
 
         return redirect()->route('admin.users.show', $user);
     }
