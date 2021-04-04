@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\Adverts;
 
 use App\Entity\Adverts\Category;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Admin\Adverts\CategoryRequest;
 
 class CategoryController extends Controller
 {
@@ -31,14 +31,8 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        $this->validate($request, [
-            'name' => 'required|string|max:255',
-            'slug' => 'required|string|max:255',
-            'parent' => 'nullable|integer|exists:advert_categories,id',
-        ]);
-
         $category = Category::create([
             'name' => $request['name'],
             'slug' => $request['slug'],
@@ -72,14 +66,8 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, Category $category)
     {
-        $this->validate($request, [
-            'name' => 'required|string|max:255',
-            'slug' => 'required|string|max:255',
-            'parent' => 'nullable|integer|exists:advert_categories,id',
-        ]);
-
         $category->update([
             'name' => $request['name'],
             'slug' => $request['slug'],
