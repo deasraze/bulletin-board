@@ -3,6 +3,7 @@
  use App\Entity\Region;
  use App\Entity\User;
  use App\Entity\Adverts\Category;
+ use App\Entity\Adverts\Attribute;
 
  /* Site */
  // Home
@@ -133,4 +134,27 @@
  Breadcrumbs::for('admin.adverts.categories.edit', function ($trail, Category $category) {
      $trail->parent('admin.adverts.categories.show', $category);
      $trail->push('Edit', route('admin.adverts.categories.edit', $category));
+ });
+
+ /**
+  * Admin Panel:
+  * Advert Category Attributes
+  */
+
+ // Home > Admin > Categories > $category->name > $attribute->name
+ Breadcrumbs::for('admin.adverts.categories.attributes.show', function ($trail, Category $category, Attribute $attribute) {
+     $trail->parent('admin.adverts.categories.show', $category);
+     $trail->push($attribute->name, route('admin.adverts.categories.attributes.show', [$category, $attribute]));
+ });
+
+ // Home > Admin > Categories > $category->name > $attribute->name > Edit
+ Breadcrumbs::for('admin.adverts.categories.attributes.edit', function ($trail, Category $category, Attribute $attribute) {
+     $trail->parent('admin.adverts.categories.attributes.show', $category, $attribute);
+     $trail->push('Edit', route('admin.adverts.categories.attributes.edit', [$category, $attribute]));
+ });
+
+ // Home > Admin > Categories > $category->name > Create
+ Breadcrumbs::for('admin.adverts.categories.attributes.create', function ($trail, Category $category) {
+     $trail->parent('admin.adverts.categories.show', $category);
+     $trail->push('Create', route('admin.adverts.categories.attributes.create', $category));
  });
