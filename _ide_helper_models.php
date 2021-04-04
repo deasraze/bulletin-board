@@ -23,6 +23,8 @@ namespace App\Entity\Adverts{
  * @property Category[] $children
  * @property int $_lft
  * @property int $_rgt
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Entity\Adverts\Attribute[] $attributes
+ * @property-read int|null $attributes_count
  * @property-read int|null $children_count
  * @method static \Kalnoy\Nestedset\Collection|static[] all($columns = ['*'])
  * @method static \Kalnoy\Nestedset\QueryBuilder|Category ancestorsAndSelf($id, array $columns = [])
