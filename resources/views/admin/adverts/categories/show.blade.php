@@ -26,4 +26,34 @@
         <tbody>
         </tbody>
     </table>
+
+    <p><a href="{{ route('admin.adverts.categories.attributes.create', $category) }}" class="btn btn-success">Add Attribute</a></p>
+
+    @if(count($attributes) > 0)
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Sort</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Required</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach ($attributes as $attribute)
+                <tr>
+                    <td>{{ $attribute->sort }}</td>
+                    <td>
+                        <a href="{{ route('admin.adverts.categories.attributes.show', [$category, $attribute]) }}">
+                            {{ $attribute->name }}
+                        </a>
+                    </td>
+                    <td>{{ $attribute->type }}</td>
+                    <td>{{ $attribute->required ? 'Yes' : '' }}</td>
+                </tr>
+            @endforeach
+
+            </tbody>
+        </table>
+    @endif
 @endsection
