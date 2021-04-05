@@ -35,10 +35,23 @@
      $trail->push('Change', route('password.reset'));
  });
 
+ /* Cabinet */
  // Home > Cabinet
  Breadcrumbs::for('cabinet.home', function ($trail) {
      $trail->parent('home');
      $trail->push('Cabinet', route('cabinet.home'));
+ });
+
+ // Home > Cabinet > Profile
+ Breadcrumbs::for('cabinet.profile.home', function ($trail) {
+     $trail->parent('cabinet.home');
+     $trail->push('Profile', route('cabinet.profile.home'));
+ });
+
+ // Home > Cabinet > Profile > Edit
+ Breadcrumbs::for('cabinet.profile.edit', function ($trail) {
+     $trail->parent('cabinet.profile.home');
+     $trail->push('Edit', route('cabinet.profile.edit'));
  });
 
  /* Admin Panel */
