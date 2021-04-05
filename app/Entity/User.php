@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 
 /**
  * @property $name
+ * @property $last_name
  * @property $email
  * @property $password
  * @property $verify_token
@@ -28,6 +29,7 @@ class User extends Authenticatable
 
     protected $fillable = [
         'name',
+        'last_name',
         'email',
         'password',
         'verify_token',
