@@ -17,10 +17,10 @@
      $trail->push('Login', route('login'));
  });
 
- // Home > for
- Breadcrumbs::for('for', function ($trail) {
+ // Home > Register
+ Breadcrumbs::for('register', function ($trail) {
      $trail->parent('home');
-     $trail->push('for', route('for'));
+     $trail->push('Register', route('register'));
  });
 
  // Home > Login > Reset Password
