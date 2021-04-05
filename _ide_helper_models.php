@@ -12,6 +12,32 @@
 
 namespace App\Entity\Adverts{
 /**
+ * App\Entity\Adverts\Attribute
+ *
+ * @property int $id
+ * @property int $category_id
+ * @property string $name
+ * @property string $type
+ * @property string $default
+ * @property boolean $required
+ * @property array $variants
+ * @property integer $sort
+ * @method static \Illuminate\Database\Eloquent\Builder|Attribute newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Attribute newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Attribute query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Attribute whereCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Attribute whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Attribute whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Attribute whereRequired($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Attribute whereSort($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Attribute whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Attribute whereVariants($value)
+ */
+	class Attribute extends \Eloquent {}
+}
+
+namespace App\Entity\Adverts{
+/**
  * App\Entity\Adverts\Category
  *
  * @property int $id
@@ -21,9 +47,9 @@ namespace App\Entity\Adverts{
  * @property int $depth
  * @property Category $parent
  * @property Category[] $children
+ * @property Attribute[] $attributes
  * @property int $_lft
  * @property int $_rgt
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Entity\Adverts\Attribute[] $attributes
  * @property-read int|null $attributes_count
  * @property-read int|null $children_count
  * @method static \Kalnoy\Nestedset\Collection|static[] all($columns = ['*'])
