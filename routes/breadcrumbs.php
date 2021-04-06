@@ -54,6 +54,13 @@
      $trail->push('Edit', route('cabinet.profile.edit'));
  });
 
+ // Home > Cabinet > Profile > Phone
+ Breadcrumbs::for('cabinet.profile.phone', function ($trail) {
+     $trail->parent('cabinet.profile.home');
+     $trail->push('Phone', route('cabinet.profile.phone'));
+ });
+
+
  /* Admin Panel */
  // Home > Admin
  Breadcrumbs::for('admin.home', function ($trail) {
