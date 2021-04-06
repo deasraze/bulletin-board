@@ -3,18 +3,27 @@
 namespace App\Http\Controllers\Cabinet;
 
 use App\Http\Controllers\Controller;
-use Auth;
+use App\Services\Sms\SmsSender;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PhoneController extends Controller
 {
+    private SmsSender $sms;
+
+    public function __construct(SmsSender $sms)
+    {
+        $this->sms = $sms;
+    }
+
     public function request(Request $request)
     {
         $user = Auth::user();
 
         try {
             $token = $user->requestPhoneVerification(Carbon::now());
+            $this->sms->send($user->phone, 'Phone verification token: ' . $token);
         } catch (\DomainException $e) {
             $request->session()->flash('error', sprintf(
                 '%s Please try again after %ds.',
@@ -44,7 +53,9 @@ class PhoneController extends Controller
         try {
             $user->verifyPhone($request['token'], Carbon::now());
         } catch (\DomainException $e) {
-            return redirect()->route('cabinet.profile.phone')->with('error', $e->getMessage());
+            return redirect()->route('cabinet.profile.phone')
+                ->with('error', $e->getMessage())
+                ->withInput($request->only('token'));
         }
 
         return redirect()->route('cabinet.profile.home')->with('success', 'Success. Phone verified!');
