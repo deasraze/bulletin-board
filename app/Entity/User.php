@@ -14,6 +14,7 @@ use Illuminate\Support\Str;
  * @property string $last_name
  * @property string $email
  * @property string $phone
+ * @property boolean $phone_auth
  * @property bool $phone_verified
  * @property string $password
  * @property string $verify_token
@@ -49,6 +50,7 @@ class User extends Authenticatable
     ];
 
     protected $casts = [
+        'phone_auth' => 'boolean',
         'phone_verified' => 'boolean',
         'phone_verify_token_expire' => 'datetime',
     ];
@@ -145,9 +147,26 @@ class User extends Authenticatable
 
     public function unverifyPhone(): void
     {
+        $this->phone_auth = false;
         $this->phone_verified = false;
         $this->phone_verify_token = null;
         $this->phone_verify_token_expire = null;
+        $this->saveOrFail();
+    }
+
+    public function enablePhoneAuth(): void
+    {
+        if ($this->phone !== null && !$this->isPhoneVerified()) {
+            throw new \DomainException('Phone number is don\'t verified.');
+        }
+
+        $this->phone_auth = true;
+        $this->saveOrFail();
+    }
+
+    public function disablePhoneAuth(): void
+    {
+        $this->phone_auth = false;
         $this->saveOrFail();
     }
 
@@ -159,5 +178,10 @@ class User extends Authenticatable
     public function isAdmin(): bool
     {
         return $this->role === self::ROLE_ADMIN;
+    }
+
+    public function isPhoneAuthEnabled(): bool
+    {
+        return $this->phone_auth;
     }
 }
