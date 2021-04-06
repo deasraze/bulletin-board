@@ -43,7 +43,6 @@ class PhoneTest extends TestCase
             'phone' => '79000000000',
             'phone_verified' => false,
             'phone_verify_token' => null,
-            'phone_verify_token_expire' => null,
         ]);
 
         $token = $user->requestPhoneVerification(Carbon::now());
@@ -59,7 +58,6 @@ class PhoneTest extends TestCase
             'phone' => '79000000000',
             'phone_verified' => true,
             'phone_verify_token' => null,
-            'phone_verify_token_expire' => null,
         ]);
 
         self::assertTrue($user->isPhoneVerified());
@@ -77,7 +75,6 @@ class PhoneTest extends TestCase
             'phone' => '79000000000',
             'phone_verified' => true,
             'phone_verify_token' => null,
-            'phone_verify_token_expire' => null,
         ]);
 
         $user->requestPhoneVerification($now = Carbon::now());
@@ -93,7 +90,6 @@ class PhoneTest extends TestCase
             'phone' => '79000000000',
             'phone_verified' => true,
             'phone_verify_token' => null,
-            'phone_verify_token_expire' => null,
         ]);
 
         $user->requestPhoneVerification($now = Carbon::now());
