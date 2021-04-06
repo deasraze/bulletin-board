@@ -66,6 +66,11 @@
      $trail->push('Phone', route('cabinet.profile.phone'));
  });
 
+ // Home > Cabinet > Adverts
+ Breadcrumbs::for('cabinet.adverts.index', function ($trail) {
+     $trail->parent('cabinet.home');
+     $trail->push('Adverts', route('cabinet.adverts.index'));
+ });
 
  /* Admin Panel */
  // Home > Admin
