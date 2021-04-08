@@ -10,6 +10,82 @@
  */
 
 
+namespace App\Entity\Adverts\Advert{
+/**
+ * App\Entity\Adverts\Advert\Advert
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property int $category_id
+ * @property int $region_id
+ * @property string $title
+ * @property string $content
+ * @property int $price
+ * @property string $address
+ * @property string $status
+ * @property string $reject_reason
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * @property Carbon $published_at
+ * @property Carbon $expires_at
+ * @property-read \App\Entity\Adverts\Category $category
+ * @property-read \App\Entity\Region|null $region
+ * @property-read \App\Entity\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Advert newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Advert newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Advert query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Advert whereAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Advert whereCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Advert whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Advert whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Advert whereExpiresAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Advert whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Advert wherePrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Advert wherePublishedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Advert whereRegionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Advert whereRejectReason($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Advert whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Advert whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Advert whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Advert whereUserId($value)
+ */
+	class Advert extends \Eloquent {}
+}
+
+namespace App\Entity\Adverts\Advert{
+/**
+ * App\Entity\Adverts\Advert\Photo
+ *
+ * @property int $id
+ * @property int $advert_id
+ * @property string $file
+ * @method static \Illuminate\Database\Eloquent\Builder|Photo newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Photo newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Photo query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Photo whereAdvertId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Photo whereFile($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Photo whereId($value)
+ */
+	class Photo extends \Eloquent {}
+}
+
+namespace App\Entity\Adverts\Advert{
+/**
+ * App\Entity\Adverts\Advert\Value
+ *
+ * @property int $attribute_id
+ * @property string $value
+ * @property int $advert_id
+ * @method static \Illuminate\Database\Eloquent\Builder|Value newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Value newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Value query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Value whereAdvertId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Value whereAttributeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Value whereValue($value)
+ */
+	class Value extends \Eloquent {}
+}
+
 namespace App\Entity\Adverts{
 /**
  * App\Entity\Adverts\Attribute
@@ -138,13 +214,19 @@ namespace App\Entity{
 /**
  * App\Entity\User
  *
- * @property $name
- * @property $email
- * @property $password
- * @property $verify_token
- * @property $role
- * @property $status
  * @property int $id
+ * @property string $name
+ * @property string $last_name
+ * @property string $email
+ * @property string $phone
+ * @property boolean $phone_auth
+ * @property bool $phone_verified
+ * @property string $password
+ * @property string $verify_token
+ * @property string $phone_verify_token
+ * @property Carbon $phone_verify_token_expire
+ * @property string $role
+ * @property string $status
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -157,8 +239,14 @@ namespace App\Entity{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereLastName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePhone($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePhoneAuth($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePhoneVerified($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePhoneVerifyToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePhoneVerifyTokenExpire($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRole($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereStatus($value)
