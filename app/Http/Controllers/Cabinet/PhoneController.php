@@ -45,7 +45,7 @@ class PhoneController extends Controller
     public function verify(Request $request)
     {
         $this->validate($request, [
-            'token' => 'required|string|max:255',
+            'token' => 'required|digits:5',
         ]);
 
         $user = Auth::user();
