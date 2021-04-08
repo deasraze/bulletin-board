@@ -24,6 +24,11 @@ class Region extends Model
         'parent_id',
     ];
 
+    public function getAddress(): string
+    {
+        return ($this->parent ? $this->parent->getAddress() . ', ' : '') . $this->name;
+    }
+
     public function parent()
     {
         return $this->belongsTo(static::class, 'parent_id', 'id');
