@@ -55,6 +55,14 @@ class User extends Authenticatable
         'phone_verify_token_expire' => 'datetime',
     ];
 
+    public static function rolesList(): array
+    {
+        return [
+            self::ROLE_ADMIN => 'Admin',
+            self::ROLE_USER => 'User',
+        ];
+    }
+
     public static function register(string $name, string $email, string $password): self
     {
         return static::create([
@@ -102,7 +110,7 @@ class User extends Authenticatable
 
     public function changeRole(string $role): void
     {
-        if (!\in_array($role, [self::ROLE_USER, self::ROLE_ADMIN], true)) {
+        if (!array_key_exists($role, self::rolesList())) {
             throw new \InvalidArgumentException('Undefined role "' . $role . '"');
         }
         if ($this->role === $role) {

@@ -38,7 +38,7 @@ class UserFactory extends Factory
             'phone_verify_token' => $phoneActive ? null : Str::uuid(),
             'phone_verify_token_expire' => $phoneActive ? null : Carbon::now()->addSeconds(300),
             'role' => $active
-                ? $this->faker->randomElement([User::ROLE_ADMIN, User::ROLE_USER])
+                ? $this->faker->randomElement(array_keys(User::rolesList()))
                 : User::ROLE_USER,
             'status' => $active ? User::STATUS_ACTIVE : User::STATUS_WAIT,
         ];
