@@ -50,21 +50,6 @@ class Advert extends Model
         ];
     }
 
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id', 'id');
-    }
-
-    public function category()
-    {
-        return $this->belongsTo(Category::class, 'category_id', 'id');
-    }
-
-    public function region()
-    {
-        return $this->belongsTo(Region::class, 'region_id', 'id');
-    }
-
     public function isDraft(): bool
     {
         return $this->status === self::STATUS_DRAFT;
@@ -83,5 +68,30 @@ class Advert extends Model
     public function isOnModeration(): bool
     {
         return $this->status === self::STATUS_MODERATION;
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+
+    public function region()
+    {
+        return $this->belongsTo(Region::class, 'region_id', 'id');
+    }
+
+    public function values()
+    {
+        return $this->hasMany(Value::class, 'advert_id', 'id');
+    }
+
+    public function photos()
+    {
+        return $this->hasMany(Photo::class, 'advert_id', 'id');
     }
 }
