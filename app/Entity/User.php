@@ -63,6 +63,14 @@ class User extends Authenticatable
         ];
     }
 
+    public static function statusesList(): array
+    {
+        return [
+            self::STATUS_ACTIVE => 'Active',
+            self::STATUS_WAIT => 'Waiting',
+        ];
+    }
+
     public static function register(string $name, string $email, string $password): self
     {
         return static::create([

@@ -47,11 +47,7 @@ class UsersController extends Controller
 
         $users = $query->paginate(20);
 
-        $statuses = [
-            User::STATUS_ACTIVE => 'Active',
-            User::STATUS_WAIT => 'Waiting',
-        ];
-
+        $statuses = User::statusesList();
         $roles = User::rolesList();
 
         return view('admin.users.index', compact('users', 'statuses', 'roles'));
