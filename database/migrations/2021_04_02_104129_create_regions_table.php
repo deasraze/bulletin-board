@@ -14,18 +14,15 @@ class CreateRegionsTable extends Migration
     public function up()
     {
         Schema::create('regions', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('name')->index();
             $table->string('slug');
-            $table->unsignedInteger('parent_id')->nullable();
+            $table->foreignId('parent_id')->nullable()
+                ->constrained('regions')
+                ->onDelete('CASCADE');
             $table->timestamps();
             $table->unique(['parent_id', 'slug']);
             $table->unique(['parent_id', 'name']);
-
-            $table->foreign('parent_id')
-                ->references('id')
-                ->on('regions')
-                ->onDelete('CASCADE');
         });
     }
 
