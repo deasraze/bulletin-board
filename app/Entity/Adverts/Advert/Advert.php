@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity\Adverts;
+namespace App\Entity\Adverts\Advert;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
