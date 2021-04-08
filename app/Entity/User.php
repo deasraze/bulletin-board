@@ -31,6 +31,7 @@ class User extends Authenticatable
     public const STATUS_ACTIVE = 'active';
 
     public const ROLE_ADMIN = 'admin';
+    public const ROLE_MODERATOR = 'moderator';
     public const ROLE_USER = 'user';
 
     protected $fillable = [
@@ -59,6 +60,7 @@ class User extends Authenticatable
     {
         return [
             self::ROLE_ADMIN => 'Admin',
+            self::ROLE_MODERATOR => 'Moderator',
             self::ROLE_USER => 'User',
         ];
     }
@@ -194,6 +196,11 @@ class User extends Authenticatable
     public function isAdmin(): bool
     {
         return $this->role === self::ROLE_ADMIN;
+    }
+
+    public function isModerator(): bool
+    {
+        return $this->role === self::ROLE_MODERATOR;
     }
 
     public function isPhoneAuthEnabled(): bool
