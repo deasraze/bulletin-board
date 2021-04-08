@@ -38,9 +38,11 @@
                     <form method="POST" action="{{ route('cabinet.profile.phone.auth') }}">
                         @csrf
                         @if ($user->isPhoneAuthEnabled())
-                            <button type="submit" class="btn btn-sm btn-success">On</button>
+                            <span>Active</span>
+                            <button type="submit" class="btn btn-sm btn-danger mx-2">Disabled</button>
                         @else
-                            <button type="submit" class="btn btn-sm btn-danger">Off</button>
+                            <span>Not active</span>
+                            <button type="submit" class="btn btn-sm btn-success mx-2">Enabled</button>
                         @endif
                     </form>
                 </td>
