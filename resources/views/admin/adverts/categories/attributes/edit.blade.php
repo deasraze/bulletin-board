@@ -43,8 +43,7 @@
             <label for="variants" class="col-form-label">Variants</label>
             <textarea id="variants" type="text"
                       class="form-control{{ $errors->has('variants') ? ' is-invalid' : '' }}"
-                      name="variants">{{ old('variants', implode("\n", $attribute->variants)) }}
-            </textarea>
+                      name="variants">{{ old('variants', implode("\n", $attribute->variants) ?: '') }}</textarea>
             @if ($errors->has('variants'))
                 <span class="invalid-feedback"><strong>{{ $errors->first('variants') }}</strong></span>
             @endif
