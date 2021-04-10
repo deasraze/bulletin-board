@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HomeController;
+use App\Http\Middleware\FilledProfile;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,7 +47,18 @@ Route::group(
             Route::post('/phone/auth', 'PhoneController@auth')->name('phone.auth');
         });
 
-        Route::resource('adverts', 'Adverts\AdvertController');
+        Route::group([
+            'prefix' => 'adverts',
+            'as' => 'adverts.',
+            'namespace' => 'Adverts',
+            'middleware' => [FilledProfile::class],
+        ], function () {
+            Route::get('/', 'AdvertController@index')->name('index');
+            Route::get('/create', 'CreateController@category')->name('create');
+            Route::get('/create/region/{category}/{region?}', 'CreateController@region')->name('create.region');
+            Route::get('/create/advert/{category}/{region?}', 'CreateController@advert')->name('create.advert');
+            Route::post('/create/advert/{category}/{region?}', 'CreateController@store')->name('create.advert.store');
+        });
     }
 );
 
