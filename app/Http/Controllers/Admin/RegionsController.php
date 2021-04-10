@@ -13,9 +13,7 @@ class RegionsController extends Controller
      */
     public function index()
     {
-        $regions = Region::where('parent_id')
-            ->orderBy('name')
-            ->paginate(20);
+        $regions = Region::roots()->orderBy('name')->paginate(20);
 
         return view('admin.regions.index', compact('regions'));
     }
