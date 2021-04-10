@@ -23,6 +23,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $updated_at
  * @property Carbon $published_at
  * @property Carbon $expires_at
+ *
+ * @property User $user
+ * @property Region $region
+ * @property Category $category
+ * @property Value[] $values
+ * @property Photo[] $photos
  */
 class Advert extends Model
 {
@@ -48,6 +54,41 @@ class Advert extends Model
             self::STATUS_CLOSED => 'Closed',
             self::STATUS_MODERATION => 'On moderation',
         ];
+    }
+
+    public function sendToModeration(): void
+    {
+        if (!$this->isDraft()) {
+            throw new \DomainException('Advert is not draft.');
+        }
+        if (!\count($this->photos)) {
+            throw new \DomainException('Upload photos.');
+        }
+
+        $this->update([
+            'status' => self::STATUS_MODERATION,
+        ]);
+    }
+
+    public function moderate(Carbon $date): void
+    {
+        if (!$this->isOnModeration()) {
+            throw new \DomainException('Advert is not sent to moderation.');
+        }
+
+        $this->update([
+            'published_at' => $date,
+            'expires_at' => $date->copy()->addDays(15),
+            'status' => self::STATUS_ACTIVE,
+        ]);
+    }
+
+    public function reject(string $reason): void
+    {
+        $this->update([
+            'status' => self::STATUS_DRAFT,
+            'reject_reason' => $reason,
+        ]);
     }
 
     public function isDraft(): bool
