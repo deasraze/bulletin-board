@@ -28,7 +28,7 @@ class AttributeController extends Controller
             'name' => $request['name'],
             'type' => $request['type'],
             'required' => (bool)$request['required'],
-            'variants' => array_map('trim', preg_split('/[\r\n]+/', $request['variants'])),
+            'variants' => array_map('trim', preg_split('/[\r\n]+/', $request['variants'], -1, PREG_SPLIT_NO_EMPTY)),
             'sort' => $request['sort'],
         ]);
 
@@ -62,7 +62,7 @@ class AttributeController extends Controller
             'name' => $request['name'],
             'type' => $request['type'],
             'required' => (bool)$request['required'],
-            'variants' => array_map('trim', preg_split('/[\r\n]+/', $request['variants'])),
+            'variants' => array_map('trim', preg_split('/[\r\n]+/', $request['variants'], -1, PREG_SPLIT_NO_EMPTY)),
             'sort' => $request['sort'],
         ]);
 
