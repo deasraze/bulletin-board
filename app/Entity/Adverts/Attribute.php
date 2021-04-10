@@ -2,7 +2,6 @@
 
 namespace App\Entity\Adverts;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -17,8 +16,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Attribute extends Model
 {
-    use HasFactory;
-
     public const TYPE_STRING = 'string';
     public const TYPE_INTEGER = 'integer';
     public const TYPE_FLOAT = 'float';
@@ -67,5 +64,10 @@ class Attribute extends Model
     public function isSelect(): bool
     {
         return \count($this->variants) > 0;
+    }
+
+    public function isNumber(): bool
+    {
+        return ($this->isInteger() || $this->isFloat());
     }
 }
