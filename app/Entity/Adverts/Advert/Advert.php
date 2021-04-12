@@ -6,6 +6,7 @@ use App\Entity\Adverts\Category;
 use App\Entity\Region;
 use App\Entity\User;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -134,5 +135,30 @@ class Advert extends Model
     public function photos()
     {
         return $this->hasMany(Photo::class, 'advert_id', 'id');
+    }
+
+    public function scopeForUser(Builder $query, User $user): Builder
+    {
+        return $query->where('user_id', $user->id);
+    }
+
+    public function scopeForRegion(Builder $query, Region $region): Builder
+    {
+        $ids = [$region->id];
+        $childrenIds = $ids;
+
+        while ($childrenIds = Region::where(['parent_id' => $childrenIds])->pluck('id')->toArray()) {
+            $ids = array_merge($ids, $childrenIds);
+        }
+
+        return $query->whereIn('region_id', $ids);
+    }
+
+    public function scopeForCategory(Builder $query, Category $category): Builder
+    {
+        return $query->whereIn('category_id', array_merge(
+            [$category->id],
+            $category->descendants()->pluck('id')->toArray(),
+        ));
     }
 }
