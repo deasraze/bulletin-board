@@ -92,6 +92,17 @@ class Advert extends Model
         ]);
     }
 
+    public function getValue(int $id): ?string
+    {
+        foreach ($this->values as $value) {
+            if ($value->attribute_id === $id) {
+                return $value->value;
+            }
+        }
+
+        return null;
+    }
+
     public function isDraft(): bool
     {
         return $this->status === self::STATUS_DRAFT;
