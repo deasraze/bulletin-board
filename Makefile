@@ -25,7 +25,7 @@ assets-dev:
 	docker-compose run --rm node yarn run dev
 
 assets-watch:
-	docker-compose exec node yarn run watch
+	docker-compose run --rm node yarn run watch
 
 migrations:
 	docker-compose run --rm php-cli php artisan migrate
