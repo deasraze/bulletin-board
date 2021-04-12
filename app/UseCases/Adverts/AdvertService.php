@@ -102,6 +102,16 @@ class AdvertService
         });
     }
 
+    public function expire(Advert $advert): void
+    {
+        $advert->expire();
+    }
+
+    public function close(int $id): void
+    {
+        ($this->getAdvert($id))->close();
+    }
+
     public function remove(int $id): void
     {
         $advert = $this->getAdvert($id);
