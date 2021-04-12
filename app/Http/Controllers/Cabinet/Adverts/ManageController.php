@@ -8,6 +8,7 @@ use App\Http\Middleware\FilledProfile;
 use App\Http\Requests\Adverts\AttributesRequest;
 use App\Http\Requests\Adverts\PhotoRequest;
 use App\UseCases\Adverts\AdvertService;
+use Illuminate\Support\Facades\Gate;
 
 class ManageController extends Controller
 {
@@ -21,11 +22,14 @@ class ManageController extends Controller
 
     public function attributes(Advert $advert)
     {
+        $this->checkAccess($advert);
         return view('adverts.edit.attributes', compact('advert'));
     }
 
     public function updateAttributes(AttributesRequest $request, Advert $advert)
     {
+        $this->checkAccess($advert);
+
         try {
             $this->service->editAttributes($request, $advert->id);
         } catch (\DomainException $e) {
@@ -37,11 +41,15 @@ class ManageController extends Controller
 
     public function photos(Advert $advert)
     {
+        $this->checkAccess($advert);
+
         return view('adverts.edit.photos', compact('advert'));
     }
 
     public function updatePhotos(PhotoRequest $request, Advert $advert)
     {
+        $this->checkAccess($advert);
+
         try {
             $this->service->addPhotos($request, $advert->id);
         } catch (\DomainException $e) {
@@ -53,6 +61,8 @@ class ManageController extends Controller
 
     public function destroy(Advert $advert)
     {
+        $this->checkAccess($advert);
+
         try {
             $this->service->remove($advert->id);
         } catch (\DomainException $e) {
@@ -60,5 +70,12 @@ class ManageController extends Controller
         }
 
         return back();
+    }
+
+    private function checkAccess(Advert $advert): void
+    {
+        if (!Gate::allows('manage-own-advert', $advert)) {
+            abort(403);
+        }
     }
 }
