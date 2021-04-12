@@ -39,7 +39,7 @@ class CreateController extends Controller
         return view('cabinet.adverts.create.advert', compact('category', 'region'));
     }
 
-    public function create(CreateRequest $request, Category $category, Region $region = null)
+    public function store(CreateRequest $request, Category $category, Region $region = null)
     {
         try {
             $advert = $this->service->create(
