@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Cabinet\Adverts;
 
 use App\Entity\Adverts\Advert\Advert;
 use App\Http\Controllers\Controller;
-use App\Http\Middleware\FilledProfile;
 use App\Http\Requests\Adverts\AttributesRequest;
 use App\Http\Requests\Adverts\PhotoRequest;
 use App\UseCases\Adverts\AdvertService;
@@ -16,17 +15,16 @@ class ManageController extends Controller
 
     public function __construct(AdvertService $service)
     {
-        $this->middleware(['auth', FilledProfile::class]);
         $this->service = $service;
     }
 
-    public function attributes(Advert $advert)
+    public function attributesForm(Advert $advert)
     {
         $this->checkAccess($advert);
         return view('adverts.edit.attributes', compact('advert'));
     }
 
-    public function updateAttributes(AttributesRequest $request, Advert $advert)
+    public function attributes(AttributesRequest $request, Advert $advert)
     {
         $this->checkAccess($advert);
 
@@ -39,14 +37,14 @@ class ManageController extends Controller
         return redirect()->route('adverts.show', $advert);
     }
 
-    public function photos(Advert $advert)
+    public function photosForm(Advert $advert)
     {
         $this->checkAccess($advert);
 
         return view('adverts.edit.photos', compact('advert'));
     }
 
-    public function updatePhotos(PhotoRequest $request, Advert $advert)
+    public function photos(PhotoRequest $request, Advert $advert)
     {
         $this->checkAccess($advert);
 
