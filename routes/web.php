@@ -28,6 +28,21 @@ Route::get('/verify/{token}', [RegisterController::class, 'verify'])->name('regi
 
 Route::group(
     [
+        'prefix' => 'adverts',
+        'as' => 'adverts.',
+        'namespace' => 'App\\Http\\Controllers\\Adverts',
+    ],
+    function () {
+        Route::get('/show/{advert}', 'AdvertController@show')->name('show');
+        Route::post('/show/{advert}/phone', 'AdvertController@phone')->name('phone');
+
+        Route::get('/all/{category?}', 'AdvertController@index')->name('index.all');
+        Route::get('/{region?}/{category?}', 'AdvertController@index')->name('index');
+    }
+);
+
+Route::group(
+    [
         'prefix' => 'cabinet',
         'as' => 'cabinet.',
         'namespace' => 'App\\Http\\Controllers\\Cabinet',
@@ -58,6 +73,16 @@ Route::group(
             Route::get('/create/region/{category}/{region?}', 'CreateController@region')->name('create.region');
             Route::get('/create/advert/{category}/{region?}', 'CreateController@advert')->name('create.advert');
             Route::post('/create/advert/{category}/{region?}', 'CreateController@store')->name('create.advert.store');
+
+            Route::get('/{advert}/edit', 'ManageController@editForm')->name('edit');
+            Route::put('/{advert}/edit', 'ManageController@edit');
+            Route::get('/{advert}/photos', 'ManageController@photosForm')->name('photos');
+            Route::post('/{advert}/photos', 'ManageController@photos');
+            Route::get('/{advert}/attributes', 'ManageController@attributesForm')->name('attributes');
+            Route::post('/{advert}/attributes', 'ManageController@attributes');
+            Route::post('/{advert}/send', 'ManageController@send')->name('send');
+            Route::post('/{advert}/close', 'ManageController@close')->name('close');
+            Route::delete('/{advert}/destroy', 'ManageController@destroy')->name('destroy');
         });
     }
 );
