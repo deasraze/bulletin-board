@@ -137,6 +137,28 @@
      $trail->push('Admin', route('admin.home'));
  });
 
+ /**
+  * Admin Panel:
+  * Adverts
+  */
+ // Home > Admin > Adverts
+ Breadcrumbs::for('admin.adverts.adverts.index', function ($trail) {
+     $trail->parent('admin.home');
+     $trail->push('Adverts', route('admin.adverts.adverts.index'));
+ });
+
+ // Home > Admin > $advert->title
+ Breadcrumbs::for('admin.adverts.adverts.edit', function ($trail, Advert $advert) {
+     $trail->parent('admin.home');
+     $trail->push($advert->title, route('admin.adverts.adverts.edit', $advert));
+ });
+
+ // Home > Admin > $advert->title
+ Breadcrumbs::for('admin.adverts.adverts.reject', function ($trail, Advert $advert) {
+     $trail->parent('admin.adverts.adverts.edit', $advert);
+     $trail->push('Reject', route('admin.adverts.adverts.reject', $advert));
+ });
+
 /**
  * Admin Panel:
  * Users
