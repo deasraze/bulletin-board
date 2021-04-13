@@ -8,6 +8,7 @@ use App\Entity\Region;
 use App\Entity\User;
 use App\Http\Requests\Adverts\AttributesRequest;
 use App\Http\Requests\Adverts\CreateRequest;
+use App\Http\Requests\Adverts\EditRequest;
 use App\Http\Requests\Adverts\PhotoRequest;
 use App\Http\Requests\Adverts\RejectRequest;
 use Carbon\Carbon;
@@ -62,6 +63,17 @@ class AdvertService
                 ]);
             }
         });
+    }
+
+    public function edit(EditRequest $request, int $id): void
+    {
+        $advert = $this->getAdvert($id);
+        $advert->update($request->only([
+            'title',
+            'content',
+            'price',
+            'address',
+        ]));
     }
 
     public function sendToModeration(int $id): void
