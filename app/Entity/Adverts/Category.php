@@ -31,6 +31,14 @@ class Category extends Model
         'parent_id'
     ];
 
+    public function getPath(): string
+    {
+        return \implode('/', \array_merge(
+            $this->ancestors()->defaultOrder()->pluck('slug')->toArray(),
+            [$this->slug]
+        ));
+    }
+
     public function allAttributes(): array
     {
         return array_merge($this->parentAttributes(), $this->attributes()->orderBy('sort')->getModels());
