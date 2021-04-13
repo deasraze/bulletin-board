@@ -12,7 +12,7 @@ class AdvertController extends Controller
 {
     public function index(Region $region = null, Category $category = null)
     {
-        $query = Advert::active()->with(['category', 'region'])->orderByDesc('id');
+        $query = Advert::active()->with(['category', 'region'])->orderByDesc('published_at');
 
         if ($region) {
             $query->forRegion($region);
