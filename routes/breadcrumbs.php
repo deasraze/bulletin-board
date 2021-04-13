@@ -52,7 +52,7 @@
      }
 
      if ($region) {
-         $trail->push($region->name, route('adverts.index', $region, $category));
+         $trail->push($region->name, route('adverts.index', [$region, $category]));
      }
  });
 
@@ -62,7 +62,7 @@
          : $trail->parent('adverts.inner_region', $region, $category);
 
      if ($category) {
-         $trail->push($category->name, route('adverts.index', $region, $category));
+         $trail->push($category->name, route('adverts.index', [$region, $category]));
      }
  });
 
