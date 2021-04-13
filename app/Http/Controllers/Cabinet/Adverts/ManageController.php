@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Cabinet\Adverts;
 use App\Entity\Adverts\Advert\Advert;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Adverts\AttributesRequest;
+use App\Http\Requests\Adverts\EditRequest;
 use App\Http\Requests\Adverts\PhotoRequest;
 use App\UseCases\Adverts\AdvertService;
 use Illuminate\Support\Facades\Gate;
@@ -16,6 +17,26 @@ class ManageController extends Controller
     public function __construct(AdvertService $service)
     {
         $this->service = $service;
+    }
+
+    public function editForm(Advert $advert)
+    {
+        $this->checkAccess($advert);
+
+        return view('adverts.edit.advert', compact('advert'));
+    }
+
+    public function edit(EditRequest $request, Advert $advert)
+    {
+        $this->checkAccess($advert);
+
+        try {
+            $this->service->edit($request, $advert->id);
+        } catch (\DomainException $e) {
+            return back()->with('error', $e->getMessage());
+        }
+
+        return redirect()->route('adverts.show', $advert);
     }
 
     public function attributesForm(Advert $advert)
@@ -57,6 +78,32 @@ class ManageController extends Controller
         return redirect()->route('adverts.show', $advert);
     }
 
+    public function send(Advert $advert)
+    {
+        $this->checkAccess($advert);
+
+        try {
+            $this->service->sendToModeration($advert->id);
+        } catch (\DomainException $e) {
+            return back()->with('error', $e->getMessage());
+        }
+
+        return redirect()->route('adverts.show', $advert);
+    }
+
+    public function close(Advert $advert)
+    {
+        $this->checkAccess($advert);
+
+        try {
+            $this->service->close($advert->id);
+        } catch (\DomainException $e) {
+            return back()->with('error', $e->getMessage());
+        }
+
+        return redirect()->route('adverts.show', $advert);
+    }
+
     public function destroy(Advert $advert)
     {
         $this->checkAccess($advert);
@@ -67,7 +114,7 @@ class ManageController extends Controller
             return back()->with('error', $e->getMessage());
         }
 
-        return back();
+        return redirect()->route('cabinet.adverts.index');
     }
 
     private function checkAccess(Advert $advert): void
