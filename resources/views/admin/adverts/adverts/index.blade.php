@@ -82,7 +82,7 @@
                 <td><a href="{{ route('adverts.show', $advert) }}" target="_blank">{{ $advert->title }}</a></td>
                 <td>{{ $advert->user->id }} - {{ $advert->user->name }}</td>
                 <td>
-                    {{ $advert->region ? $advert->region->id . '-' . $advert->region->name : 'All' }}
+                    {{ $advert->region ? $advert->region->id . ' - ' . $advert->region->name : 'All' }}
                 </td>
                 <td>{{ $advert->category->id }} - {{ $advert->category->name }}</td>
                 <td>
