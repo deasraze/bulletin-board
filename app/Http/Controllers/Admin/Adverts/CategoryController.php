@@ -8,6 +8,11 @@ use App\Http\Requests\Admin\Adverts\CategoryRequest;
 
 class CategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:manage-adverts-categories');
+    }
+
     /**
      * Display a listing of the resource.
      */

@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class RegionsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:manage-regions');
+    }
+
     /**
      * Display a listing of the resource.
      */

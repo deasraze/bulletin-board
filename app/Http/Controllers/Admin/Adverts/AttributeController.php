@@ -9,6 +9,11 @@ use App\Http\Requests\Admin\Adverts\AttributeRequest;
 
 class AttributeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:manage-adverts-categories');
+    }
+
     /**
      * Show the form for creating a new resource.
      */
