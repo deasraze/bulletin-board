@@ -5,6 +5,8 @@ ARG GROUP_ID
 
 RUN apt-get update && apt-get install -y libmcrypt-dev \
     && docker-php-ext-install pdo_mysql \
+    && pecl install redis-5.3.4 \
+    && docker-php-ext-enable redis \
     && rm -rf /var/lib/apt/lists/*
 
 RUN usermod -u ${USER_ID} www-data && groupmod -g ${GROUP_ID} www-data
