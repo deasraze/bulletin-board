@@ -196,4 +196,11 @@ class Advert extends Model
             $category->descendants()->pluck('id')->toArray(),
         ));
     }
+
+    public function scopeFavoredByUser(Builder $query, User $user): Builder
+    {
+        return $query->whereHas('favorites', function (Builder $query) use ($user) {
+            return $query->where('user_id', $user->id);
+        });
+    }
 }
