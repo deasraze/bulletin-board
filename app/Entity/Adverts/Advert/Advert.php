@@ -162,6 +162,11 @@ class Advert extends Model
         return $this->hasMany(Photo::class, 'advert_id', 'id');
     }
 
+    public function favorites()
+    {
+        return $this->belongsToMany(User::class, 'advert_favorites', 'advert_id', 'user_id');
+    }
+
     public function scopeActive(Builder $query): Builder
     {
         return $query->where('status', self::STATUS_ACTIVE);
