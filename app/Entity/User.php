@@ -189,6 +189,25 @@ class User extends Authenticatable
         $this->saveOrFail();
     }
 
+    public function addToFavorites(int $advertId): void
+    {
+        if ($this->hasInFavorites($advertId)) {
+            throw new \DomainException('This advert is already added to favorites.');
+        }
+
+        $this->favorites()->attach($advertId);
+    }
+
+    public function removeFromFavorites(int $advertId): void
+    {
+        $this->favorites()->detach($advertId);
+    }
+
+    public function hasInFavorites(int $advertId): bool
+    {
+        return $this->favorites()->where('id', $advertId)->exists();
+    }
+
     public function isPhoneVerified(): bool
     {
         return $this->phone_verified;
