@@ -3,8 +3,6 @@
 @section('breadcrumbs', '')
 
 @section('content')
-    <p><a href="{{ route('cabinet.adverts.create') }}" class="btn btn-success">Add Advert</a></p>
-
     <div class="card card-default mb-3">
         <div class="card-header">
             All Categories
