@@ -2,7 +2,7 @@ up: docker-up
 down: docker-down
 restart: docker-down docker-up
 
-docker-up:
+docker-up: memory
 	docker-compose up -d
 
 docker-down:
@@ -14,7 +14,7 @@ docker-down-clear:
 docker-pull:
 	docker-compose pull
 
-docker-build:
+docker-build: memory
 	docker-compose up --build -d
 
 assets-install:
@@ -32,3 +32,6 @@ migrations:
 
 test:
 	docker-compose run --rm php-cli php vendor/bin/phpunit
+
+memory:
+	sudo sysctl -w vm.max_map_count=262144
