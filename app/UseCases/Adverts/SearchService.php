@@ -7,7 +7,6 @@ use App\Entity\Adverts\Category;
 use App\Entity\Region;
 use App\Http\Requests\Adverts\SearchRequest;
 use Elasticsearch\Client;
-use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Query\Expression;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -26,7 +25,7 @@ class SearchService
         SearchRequest $request,
         int $perPage,
         int $page
-    ): Paginator {
+    ): SearchResult {
         $values = array_filter((array)$request->input('attrs'), function ($value) {
             return (!empty($value['equals']) || !empty($value['from']) || !empty($value['to']));
         });
@@ -40,6 +39,18 @@ class SearchService
                 'sort' => empty($request['text'])
                     ? ['published_at' => ['order' => 'desc']]
                     : [],
+                'aggs' => [
+                    'group_by_region' => [
+                        'terms' => [
+                            'field' => 'regions',
+                        ],
+                    ],
+                    'group_by_category' => [
+                        'terms' => [
+                            'field' => 'categories',
+                        ],
+                    ],
+                ],
                 'query' => [
                     'bool' => [
                         'must' => array_merge(
@@ -85,16 +96,21 @@ class SearchService
 
         $ids = array_column($response['hits']['hits'], '_id');
 
-        if (!$ids) {
-            return new LengthAwarePaginator([], 0, $perPage, $page);
+        if ($ids) {
+            $items = Advert::active()
+                ->with(['category', 'region'])
+                ->whereIn('id', $ids)
+                ->orderBy(new Expression('FIELD(id,' . implode(',', $ids) . ')'))
+                ->get();
+            $pagination = new LengthAwarePaginator($items, $response['hits']['total']['value'], $perPage, $page);
+        } else {
+            $pagination = new LengthAwarePaginator([], 0, $perPage, $page);
         }
 
-        $items = Advert::active()
-            ->with(['category', 'region'])
-            ->whereIn('id', $ids)
-            ->orderBy(new Expression('FIELD(id,' . implode(',', $ids) . ')'))
-            ->get();
-
-        return new LengthAwarePaginator($items, $response['hits']['total']['value'], $perPage, $page);
+        return new SearchResult(
+            $pagination,
+            array_column($response['aggregations']['group_by_region']['buckets'], 'doc_count', 'key'),
+            array_column($response['aggregations']['group_by_category']['buckets'], 'doc_count', 'key')
+        );
     }
 }
