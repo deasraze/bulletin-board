@@ -36,9 +36,9 @@ class SearchService
                 '_source' => ['id'],
                 'from' => ($page - 1) * $perPage,
                 'size' => $perPage,
-                'sort' => empty($request['text'])
-                    ? ['published_at' => ['order' => 'desc']]
-                    : [],
+                'sort' => empty($request['text']) ? [
+                    ['published_at' => ['order' => 'desc']],
+                ] : [],
                 'aggs' => [
                     'group_by_region' => [
                         'terms' => [
