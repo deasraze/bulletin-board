@@ -26,17 +26,35 @@ class AdvertController extends Controller
         $region = $path->region;
         $category = $path->category;
 
-        $regions = $region
-            ? $region->children()->orderBy('name')->getModels()
-            : Region::roots()->orderBy('name')->getModels();
+        $result = $this->search->search($region, $category, $request, 20, $request->query('page', 1));
 
-        $categories = $category
-            ? $category->children()->defaultOrder()->getModels()
-            : Category::whereIsRoot()->defaultOrder()->getModels();
+        $adverts = $result->adverts;
+        $regionsCounts = $result->regionsCounts;
+        $categoriesCounts = $result->categoriesCounts;
 
-        $adverts = $this->search->search($region, $category, $request, 20, $request->query('page', 1));
+        $query = $region ? $region->children() : Region::roots();
+        $regions = $query->orderBy('name')->getModels();
 
-        return view('adverts.index', compact('adverts', 'regions', 'categories', 'region', 'category'));
+        $query = $category ? $category->children() : Category::whereIsRoot();
+        $categories = $query->defaultOrder()->getModels();
+
+        $regions = array_filter($regions, function (Region $region) use ($regionsCounts) {
+            return array_key_exists($region->id, $regionsCounts);
+        });
+
+        $categories = array_filter($categories, function (Category $category) use ($categoriesCounts) {
+            return array_key_exists($category->id, $categoriesCounts);
+        });
+
+        return view('adverts.index', compact(
+            'adverts',
+            'region',
+            'regions',
+            'category',
+            'categories',
+            'regionsCounts',
+            'categoriesCounts'
+        ));
     }
 
     public function show(Advert $advert)

@@ -20,6 +20,7 @@
                                         <a href="{{ route('adverts.index', array_merge(
                                                 ['adverts_path' => adverts_path($region, $current)],
                                                 request()->all())) }}">{{ $current->name }}</a>
+                                        ({{ $categoriesCounts[$current->id] }})
                                     </li>
                                 @endforeach
                             </ul>
@@ -49,6 +50,7 @@
                                         <a href="{{ route('adverts.index', array_merge(
                                                 ['adverts_path' => adverts_path($current, $category)],
                                                 request()->all())) }}">{{ $current->name }}</a>
+                                        ({{ $regionsCounts[$current->id] }})
                                     </li>
                                 @endforeach
                             </ul>
