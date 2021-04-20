@@ -4,10 +4,22 @@
             <div class="col-md-9">
                 <form action="{{ $route }}" method="GET">
                     <div class="row">
-                        <div class="col-md-9">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <input type="text" class="form-control" name="text"
                                        value="{{ request('text') }}" placeholder="Search for...">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <input type="number" class="form-control" name="price_from"
+                                       value="{{ request('price_from') }}" placeholder="Price from">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <input type="number" class="form-control" name="price_to"
+                                       value="{{ request('price_to') }}" placeholder="Price to">
                             </div>
                         </div>
                         <div class="col-md-2">
