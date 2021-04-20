@@ -158,10 +158,11 @@
      $trail->push('Adverts', route('admin.adverts.adverts.index'));
  });
 
- // Home > Admin > $advert->title
+ // Home > Admin > Adverts > $advert->title > Edit
  Breadcrumbs::for('admin.adverts.adverts.edit', function ($trail, Advert $advert) {
-     $trail->parent('admin.home');
-     $trail->push($advert->title, route('admin.adverts.adverts.edit', $advert));
+     $trail->parent('admin.adverts.adverts.index');
+     $trail->push($advert->title, route('adverts.show', $advert));
+     $trail->push('Edit');
  });
 
  // Home > Admin > $advert->title
