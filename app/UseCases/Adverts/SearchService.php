@@ -64,6 +64,12 @@ class SearchService
                                     'query' => $request['text'],
                                     'fields' => ['title^3', 'content']
                                 ]] : false,
+                                !empty($request['price_from'])
+                                    ? ['range' => ['price' => ['gte' => $request['price_from']]]]
+                                    : false,
+                                !empty($request['price_to'])
+                                    ? ['range' => ['price' => ['lte' => $request['price_to']]]]
+                                    : false,
                             ]),
                             array_map(function ($value, $id) {
                                 return [
