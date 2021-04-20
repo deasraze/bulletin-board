@@ -128,6 +128,13 @@
      $trail->push($region ? $region->name : 'All', route('cabinet.adverts.create.advert', [$category, $region]));
  });
 
+ // Home > Cabinet > Adverts > $advert->title > Edit
+ Breadcrumbs::for('cabinet.adverts.edit', function ($trail, Advert $advert) {
+     $trail->parent('cabinet.adverts.index');
+     $trail->push($advert->title, route('adverts.show', $advert));
+     $trail->push('Edit');
+ });
+
  // Home > Cabinet > Favorites
  Breadcrumbs::for('cabinet.favorites.index', function ($trail) {
      $trail->parent('cabinet.home');
