@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+    @include('admin.adverts.adverts._nav')
+
     <form method="POST" action="?">
         @csrf
         <div class="form-group">
