@@ -158,16 +158,21 @@
      $trail->push('Adverts', route('admin.adverts.adverts.index'));
  });
 
- // Home > Admin > Adverts > $advert->title > Edit
- Breadcrumbs::for('admin.adverts.adverts.edit', function ($trail, Advert $advert) {
+ // Home > Admin > Adverts > $advert->title
+ Breadcrumbs::for('admin.adverts.inner_advert', function ($trail, Advert $advert) {
      $trail->parent('admin.adverts.adverts.index');
      $trail->push($advert->title, route('adverts.show', $advert));
-     $trail->push('Edit');
  });
 
- // Home > Admin > $advert->title
+ // Home > Admin > Adverts > $advert->title > Edit
+ Breadcrumbs::for('admin.adverts.adverts.edit', function ($trail, Advert $advert) {
+     $trail->parent('admin.adverts.inner_advert', $advert);
+     $trail->push('Edit', route('admin.adverts.adverts.edit', $advert));
+ });
+
+ // Home > Admin > Adverts > $advert->title > Reject
  Breadcrumbs::for('admin.adverts.adverts.reject', function ($trail, Advert $advert) {
-     $trail->parent('admin.adverts.adverts.edit', $advert);
+     $trail->parent('admin.adverts.inner_advert', $advert);
      $trail->push('Reject', route('admin.adverts.adverts.reject', $advert));
  });
 
