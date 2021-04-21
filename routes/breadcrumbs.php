@@ -1,6 +1,7 @@
  <?php
 
  use App\Entity\Adverts\Advert\Advert;
+ use App\Entity\Banner\Banner;
  use App\Entity\Region;
  use App\Entity\User;
  use App\Entity\Adverts\Category;
@@ -104,6 +105,16 @@
      $trail->push('Phone', route('cabinet.profile.phone'));
  });
 
+ // Home > Cabinet > Favorites
+ Breadcrumbs::for('cabinet.favorites.index', function ($trail) {
+     $trail->parent('cabinet.home');
+     $trail->push('Favorites', route('cabinet.favorites.index'));
+ });
+ 
+ /**
+  * Cabinet:
+  * Adverts
+  */
  // Home > Cabinet > Adverts
  Breadcrumbs::for('cabinet.adverts.index', function ($trail) {
      $trail->parent('cabinet.home');
@@ -122,7 +133,7 @@
      $trail->push($category->name, route('cabinet.adverts.create.region', [$category, $region]));
  });
 
- // Home > Adverts > Create > $categories->name  > $regions->name|All
+ // Home > Adverts > Create > $categories->name > $regions->name|All
  Breadcrumbs::for('cabinet.adverts.create.advert', function ($trail, Category $category, Region $region = null) {
      $trail->parent('cabinet.adverts.create.region', $category, $region);
      $trail->push($region ? $region->name : 'All', route('cabinet.adverts.create.advert', [$category, $region]));
@@ -135,10 +146,50 @@
      $trail->push('Edit');
  });
 
- // Home > Cabinet > Favorites
- Breadcrumbs::for('cabinet.favorites.index', function ($trail) {
+ /**
+  * Cabinet:
+  * Banners
+  */
+ // Home > Cabinet > Banners
+ Breadcrumbs::for('cabinet.banners.index', function ($trail) {
      $trail->parent('cabinet.home');
-     $trail->push('Favorites', route('cabinet.favorites.index'));
+     $trail->push('Banners', route('cabinet.banners.index'));
+ });
+
+ // Home > Cabinet > Banners > $banner->name
+ Breadcrumbs::for('cabinet.banners.show', function ($trail, Banner $banner) {
+     $trail->parent('cabinet.banners.index');
+     $trail->push($banner->name, route('cabinet.banners.show', $banner));
+ });
+
+ // Home > Cabinet > Banners > $banner->name > Edit
+ Breadcrumbs::for('cabinet.banners.edit', function ($trail, Banner $banner) {
+     $trail->parent('cabinet.banners.show', $banner);
+     $trail->push('Edit', route('cabinet.banners.edit', $banner));
+ });
+
+ // Home > Cabinet > Banners > $banner->name > File
+ Breadcrumbs::for('cabinet.banners.file', function ($trail, Banner $banner) {
+     $trail->parent('cabinet.banners.show', $banner);
+     $trail->push('File', route('cabinet.banners.file', $banner));
+ });
+
+ // Home > Cabinet > Banners > Create
+ Breadcrumbs::for('cabinet.banners.create', function ($trail) {
+     $trail->parent('cabinet.banners.index');
+     $trail->push('Create', route('cabinet.banners.create'));
+ });
+
+ // Home > Cabinet > Banners > Create > $category->name
+ Breadcrumbs::for('cabinet.banners.create.region', function ($trail, Category $category, Region $region = null) {
+     $trail->parent('cabinet.banners.create');
+     $trail->push($category->name, route('cabinet.banners.create.region', [$category, $region]));
+ });
+
+ // Home > Cabinet > Banners > Create > $categories->name > $regions->name|All
+ Breadcrumbs::for('cabinet.banners.create.banner', function ($trail, Category $category, Region $region = null) {
+     $trail->parent('cabinet.banners.create.region', $category, $region);
+     $trail->push($region ? $region->name : 'All', route('cabinet.banners.create.banner', [$category, $region]));
  });
 
  /* Admin Panel */
@@ -174,6 +225,34 @@
  Breadcrumbs::for('admin.adverts.adverts.reject', function ($trail, Advert $advert) {
      $trail->parent('admin.adverts.inner_advert', $advert);
      $trail->push('Reject', route('admin.adverts.adverts.reject', $advert));
+ });
+
+ /**
+  * Admin Panel:
+  * Banners
+  */
+ // Home > Admin > Banners
+ Breadcrumbs::for('admin.banners.index', function ($trail) {
+     $trail->parent('admin.home');
+     $trail->push('Banners', route('admin.banners.index'));
+ });
+
+ // Home > Admin > Banners > $banner->name
+ Breadcrumbs::for('admin.banners.show', function ($trail, Banner $banner) {
+     $trail->parent('admin.banners.index', $banner);
+     $trail->push($banner->name, route('admin.banners.show', $banner));
+ });
+
+ // Home > Admin > Banners > $banner->name > Edit
+ Breadcrumbs::for('admin.banners.edit', function ($trail, Banner $banner) {
+     $trail->parent('admin.banners.show', $banner);
+     $trail->push('Edit', route('admin.banners.edit', $banner));
+ });
+
+ // Home > Admin > Banners > $banner->name > Reject
+ Breadcrumbs::for('admin.banners.reject', function ($trail, Banner $banner) {
+     $trail->parent('admin.banners.show', $banner);
+     $trail->push('Reject', route('admin.banners.reject', $banner));
  });
 
 /**
