@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Cabinet\Banners;
 use App\Entity\Banner\Banner;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Banner\EditRequest;
+use App\Http\Requests\Banner\FileRequest;
 use App\UseCases\Banners\BannerService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -49,7 +50,6 @@ class BannerController extends Controller
 
         try {
             $this->service->editByOwner($request, $banner->id);
-
         } catch (\DomainException $e) {
             return back()->with('error', $e->getMessage());
         }
