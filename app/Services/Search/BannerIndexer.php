@@ -29,7 +29,7 @@ class BannerIndexer
 
     public function index(Banner $banner): void
     {
-        $regionIds = [];
+        $regionIds = [0];
 
         if ($banner->region) {
             $regionIds = [$banner->region->id];
