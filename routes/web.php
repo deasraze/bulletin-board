@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\HomeController;
 use App\Http\Middleware\FilledProfile;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +26,9 @@ Route::get('/login/phone', [LoginController::class, 'phone'])->name('login.phone
 Route::post('/login/phone', [LoginController::class, 'verify']);
 
 Route::get('/verify/{token}', [RegisterController::class, 'verify'])->name('register.verify');
+
+Route::get('/banner/get', [BannerController::class, 'get'])->name('banner.get');
+Route::get('/banner/{banner}/click', [BannerController::class, 'click'])->name('banner.click');
 
 Route::group(
     [
