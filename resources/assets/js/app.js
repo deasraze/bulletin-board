@@ -8,3 +8,26 @@ $(document).on('click', '.phone-button', function () {
         console.error(error);
     });
 });
+
+$('.banner').each(function () {
+    let banner = $(this);
+    let url = banner.data('url');
+    let format = banner.data('format');
+    let category = banner.data('category');
+    let region = banner.data('region');
+
+    axios
+        .get(url, {
+            params: {
+                format: format,
+                category: category,
+                region: region
+            }
+        })
+        .then(function (response) {
+            banner.html(response.data);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+});
