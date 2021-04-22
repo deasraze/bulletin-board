@@ -10,7 +10,7 @@ class InitCommand extends Command
 {
     protected $signature = 'search:init';
 
-    protected $description = 'Initialization adverts index for elastic search';
+    protected $description = 'Initialization indexes for elastic search';
 
     private Client $client;
 
@@ -21,6 +21,54 @@ class InitCommand extends Command
     }
 
     public function handle(): int
+    {
+        $this->initAdverts();
+        $this->initBanners();
+
+        $this->info('Success!');
+
+        return 0;
+    }
+
+    private function initBanners(): void
+    {
+        try {
+            $this->client->indices()->delete([
+                'index' => 'banners',
+            ]);
+        } catch (Missing404Exception $e) {
+        }
+
+        $this->client->indices()->create([
+            'index' => 'banners',
+            'body' => [
+                'mappings' => [
+                    '_source' => [
+                        'enabled' => true,
+                    ],
+                    'properties' => [
+                        'id' => [
+                            'type' => 'integer',
+                        ],
+                        'status' => [
+                            'type' => 'keyword',
+                        ],
+                        'format' => [
+                            'type' => 'keyword',
+                        ],
+                        'categories' => [
+                            'type' => 'integer',
+                        ],
+                        'regions' => [
+                            'type' => 'integer',
+                        ],
+                    ],
+                ],
+            ],
+        ]);
+    }
+
+    private function initAdverts(): void
     {
         try {
             $this->client->indices()->delete([
@@ -124,9 +172,5 @@ class InitCommand extends Command
                 ],
             ],
         ]);
-
-        $this->info('Success!');
-
-        return 0;
     }
 }
