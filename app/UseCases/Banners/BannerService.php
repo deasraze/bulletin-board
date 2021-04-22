@@ -8,6 +8,7 @@ use App\Entity\Region;
 use App\Entity\User;
 use App\Http\Requests\Banner\CreateRequest;
 use App\Http\Requests\Banner\EditRequest;
+use App\Http\Requests\Banner\FileRequest;
 use App\Http\Requests\Banner\RejectRequest;
 use App\Services\Banner\CostCalculator;
 use Carbon\Carbon;
@@ -47,9 +48,20 @@ class BannerService
         return $banner;
     }
 
-    public function changeFile()
+    public function changeFile(FileRequest $request, int $id): void
     {
+        $banner = $this->getBanner($id);
 
+        if (! $banner->canBeChanged()) {
+            throw new \DomainException('Unable to edit the banner.');
+        }
+
+        Storage::delete('public/' . $banner->file);
+
+        $banner->update([
+            'format' => $request['format'],
+            'file' => $request->file('file')->store('banners', 'public'),
+        ]);
     }
 
     public function editByOwner(EditRequest $request, int $id): void
