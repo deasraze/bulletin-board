@@ -145,7 +145,7 @@ class BannerService
 
         $banner->delete();
 
-        Storage::delete($banner->file);
+        Storage::delete('public/' . $banner->file);
     }
 
     public function removeByAdmin(int $id): void
@@ -154,7 +154,7 @@ class BannerService
 
         $banner->delete();
 
-        Storage::delete($banner->file);
+        Storage::delete('public/' . $banner->file);
     }
 
     private function getBanner(int $id): Banner
