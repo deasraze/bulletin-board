@@ -67,6 +67,28 @@ class Banner extends Model
         ];
     }
 
+    public function view(): void
+    {
+        $this->assertIsActive();
+
+        $this->views++;
+
+        if ($this->views >= $this->limit) {
+            $this->status = self::STATUS_CLOSED;
+        }
+
+        $this->save();
+    }
+
+    public function click(): void
+    {
+        $this->assertIsActive();
+
+        $this->clicks++;
+
+        $this->save();
+    }
+
     public function sendToModeration(): void
     {
         if (! $this->isDraft()) {
