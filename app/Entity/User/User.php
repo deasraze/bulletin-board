@@ -87,6 +87,25 @@ class User extends Authenticatable
         ]);
     }
 
+    public static function registerByNetwork(string $identity, string $network): self
+    {
+        $user = static::create([
+            'name' => $identity,
+            'email' => null,
+            'password' => null,
+            'verify_token' => null,
+            'role' => self::ROLE_USER,
+            'status' => self::STATUS_ACTIVE,
+        ]);
+
+        $user->networks()->create([
+            'identity' => $identity,
+            'network' => $network,
+        ]);
+
+        return $user;
+    }
+
     public static function new(string $name, string $email): self
     {
         return static::create([
