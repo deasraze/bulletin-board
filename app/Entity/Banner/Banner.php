@@ -63,7 +63,7 @@ class Banner extends Model
     public static function formatsList(): array
     {
         return [
-            '200x400',
+            '240x400',
         ];
     }
 
