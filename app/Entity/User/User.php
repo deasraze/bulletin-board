@@ -4,6 +4,7 @@ namespace App\Entity\User;
 
 use App\Entity\Adverts\Advert\Advert;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -241,5 +242,12 @@ class User extends Authenticatable
     public function networks()
     {
         return $this->hasMany(Network::class);
+    }
+
+    public function scopeByNetwork(Builder $query, string $identity, string $network): Builder
+    {
+        return $query->whereHas('networks', function (Builder $query) use ($identity, $network) {
+            $query->where('identity', $identity)->where('network', $network);
+        });
     }
 }
