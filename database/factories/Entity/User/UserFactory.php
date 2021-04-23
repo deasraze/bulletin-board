@@ -1,8 +1,8 @@
 <?php
 
-namespace Database\Factories\Entity;
+namespace Database\Factories\Entity\User;
 
-use App\Entity\User;
+use App\Entity\User\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;

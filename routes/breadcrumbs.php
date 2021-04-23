@@ -3,7 +3,7 @@
  use App\Entity\Adverts\Advert\Advert;
  use App\Entity\Banner\Banner;
  use App\Entity\Region;
- use App\Entity\User;
+ use App\Entity\User\User;
  use App\Entity\Adverts\Category;
  use App\Entity\Adverts\Attribute;
  use App\Http\Router\AdvertsPath;
@@ -110,7 +110,7 @@
      $trail->parent('cabinet.home');
      $trail->push('Favorites', route('cabinet.favorites.index'));
  });
- 
+
  /**
   * Cabinet:
   * Adverts
