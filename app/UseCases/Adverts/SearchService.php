@@ -58,7 +58,7 @@ class SearchService
                                 ['term' => ['status' => Advert::STATUS_ACTIVE]]
                             ],
                             array_filter([
-                                $region ? ['term' => ['regions' => $region->id]] : false,
+                                $region ? ['terms' => ['regions' => [$region->id, 0]]] : false,
                                 $category ? ['term' => ['categories' => $category->id]] : false,
                                 !empty($request['text']) ? ['multi_match' => [
                                     'query' => $request['text'],

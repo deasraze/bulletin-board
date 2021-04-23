@@ -51,7 +51,7 @@ class AdvertIndexer
                     [$advert->category->id],
                     $advert->category->ancestors()->pluck('id')->toArray()
                 ),
-                'regions' => $regions,
+                'regions' => $regions ?: [0],
                 'values' => array_map(function (Value $value) {
                     return [
                         'attribute' => $value->attribute_id,
