@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\NetworkController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\HomeController;
@@ -26,6 +27,9 @@ Route::get('/login/phone', [LoginController::class, 'phone'])->name('login.phone
 Route::post('/login/phone', [LoginController::class, 'verify']);
 
 Route::get('/verify/{token}', [RegisterController::class, 'verify'])->name('register.verify');
+
+Route::get('/auth/{network}/redirect', [NetworkController::class, 'redirect'])->name('auth.network');
+Route::get('/auth/{network}/callback', [NetworkController::class, 'callback']);
 
 Route::get('/banner/get', [BannerController::class, 'get'])->name('banner.get');
 Route::get('/banner/{banner}/click', [BannerController::class, 'click'])->name('banner.click');
