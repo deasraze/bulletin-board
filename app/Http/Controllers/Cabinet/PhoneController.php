@@ -4,18 +4,18 @@ namespace App\Http\Controllers\Cabinet;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Cabinet\PhoneVerifyRequest;
-use App\Services\Sms\SmsSender;
+use App\UseCases\Profile\PhoneService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PhoneController extends Controller
 {
-    private SmsSender $sms;
+    private PhoneService $service;
 
-    public function __construct(SmsSender $sms)
+    public function __construct(PhoneService $service)
     {
-        $this->sms = $sms;
+        $this->service = $service;
     }
 
     public function request(Request $request)
@@ -23,8 +23,7 @@ class PhoneController extends Controller
         $user = Auth::user();
 
         try {
-            $token = $user->requestPhoneVerification(Carbon::now());
-            $this->sms->send($user->phone, 'Phone verification token: ' . $token);
+            $this->service->request($user->id);
         } catch (\DomainException $e) {
             $request->session()->flash('error', sprintf(
                 '%s Please try again after %ds.',
@@ -45,10 +44,8 @@ class PhoneController extends Controller
 
     public function verify(PhoneVerifyRequest $request)
     {
-        $user = Auth::user();
-
         try {
-            $user->verifyPhone($request['token'], Carbon::now());
+            $this->service->verify(Auth::id(), $request);
         } catch (\DomainException $e) {
             return redirect()->route('cabinet.profile.phone')
                 ->with('error', $e->getMessage())
@@ -60,8 +57,7 @@ class PhoneController extends Controller
 
     public function auth()
     {
-        $user = Auth::user();
-        ($user->isPhoneAuthEnabled()) ? $user->disablePhoneAuth() : $user->enablePhoneAuth();
+        $this->service->toggleAuth(Auth::id());
 
         return redirect()->route('cabinet.profile.home');
     }
