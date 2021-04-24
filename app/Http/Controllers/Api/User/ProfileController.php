@@ -17,15 +17,42 @@ class ProfileController extends Controller
         $this->service = $service;
     }
 
-    public function show(Request $request)
+    public function show(Request $request): array
     {
-        return $request->user();
+        /* @var User $user */
+        $user = $request->user();
+
+        return [
+            'id' => $user->id,
+            'email' => $user->email,
+            'name' => [
+                'first' => $user->name,
+                'last' => $user->last_name,
+            ],
+            'phone' => [
+                'number' => $user->phone,
+                'verified' => $user->phone_verified
+            ],
+        ];
     }
 
-    public function update(ProfileEditRequest $request)
+    public function update(ProfileEditRequest $request): array
     {
         $this->service->edit($request->user()->id, $request);
 
-        return User::findOrFail($request->user()->id);
+        $user = User::findOrFail($request->user()->id);
+
+        return [
+            'id' => $user->id,
+            'email' => $user->email,
+            'name' => [
+                'first' => $user->name,
+                'last' => $user->last_name,
+            ],
+            'phone' => [
+                'number' => $user->phone,
+                'verified' => $user->phone_verified
+            ],
+        ];
     }
 }
