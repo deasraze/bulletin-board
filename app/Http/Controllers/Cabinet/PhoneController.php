@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Cabinet;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Cabinet\PhoneVerifyRequest;
 use App\Services\Sms\SmsSender;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -42,12 +43,8 @@ class PhoneController extends Controller
         return view('cabinet.profile.phone', compact('user'));
     }
 
-    public function verify(Request $request)
+    public function verify(PhoneVerifyRequest $request)
     {
-        $this->validate($request, [
-            'token' => 'required|digits:5',
-        ]);
-
         $user = Auth::user();
 
         try {
