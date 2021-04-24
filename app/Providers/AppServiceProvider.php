@@ -6,6 +6,7 @@ use App\Services\Banner\CostCalculator;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Passport\Passport;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,6 +22,8 @@ class AppServiceProvider extends ServiceProvider
 
             return new CostCalculator($config['price']);
         });
+
+        Passport::ignoreMigrations();
     }
 
     /**
