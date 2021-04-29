@@ -21,6 +21,21 @@ class AdvertController extends Controller
         $this->search = $search;
     }
 
+    /**
+     * @OA\Get(
+     *     path="/adverts",
+     *     tags={"Adverts"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success response",
+     *         @OA\Schema(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/AdvertList")
+     *         ),
+     *     ),
+     *     security={{"Bearer": {}, "OAuth2": {}}}
+     * )
+     */
     public function index(SearchRequest $request)
     {
         $region = $request->query('region') ? Region::findOrFail($request->query('region')) : null;
@@ -31,6 +46,28 @@ class AdvertController extends Controller
         return AdvertListResource::collection($result->adverts);
     }
 
+    /**
+     * @OA\Get(
+     *     path="/adverts/{advertId}",
+     *     tags={"Adverts"},
+     *     @OA\Parameter(
+     *         name="advertId",
+     *         description="ID of advert",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *           type="array",
+     *         @OA\Items(type="string"),
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success response",
+     *         @OA\Schema(ref="#/components/schemas/AdvertDetail"),
+     *     ),
+     *     security={{"Bearer": {}, "OAuth2": {}}}
+     * )
+     */
     public function show(Advert $advert): AdvertDetailResource
     {
         if (! ($advert->isActive() || Gate::allows('show-advert', $advert))) {

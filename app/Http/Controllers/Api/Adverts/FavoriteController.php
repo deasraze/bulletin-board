@@ -17,6 +17,25 @@ class FavoriteController extends Controller
         $this->service = $service;
     }
 
+    /**
+     * @OA\Post(
+     *     path="/adverts/{advertId}/favorite",
+     *     tags={"Adverts"},
+     *     @OA\Parameter(
+     *         name="advertId",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *           type="integer",
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Success response",
+     *     ),
+     *     security={{"Bearer": {}, "OAuth2": {}}}
+     * )
+     */
     public function add(Request $request, Advert $advert)
     {
         $this->service->add($request->user()->id, $advert->id);
@@ -24,6 +43,25 @@ class FavoriteController extends Controller
         return response()->json([], Response::HTTP_CREATED);
     }
 
+    /**
+     * @OA\Delete(
+     *     path="/adverts/{advertId}/favorite",
+     *     tags={"Adverts"},
+     *     @OA\Parameter(
+     *         name="advertId",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *           type="integer",
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=204,
+     *         description="Success response",
+     *     ),
+     *     security={{"Bearer": {}, "OAuth2": {}}}
+     * )
+     */
     public function remove(Request $request, Advert $advert)
     {
         $this->service->remove($request->user()->id, $advert->id);

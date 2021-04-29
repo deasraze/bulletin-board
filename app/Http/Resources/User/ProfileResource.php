@@ -30,3 +30,20 @@ class ProfileResource extends JsonResource
         ];
     }
 }
+
+/**
+ * @OA\Schema(
+ *     schema="Profile",
+ *     type="object",
+ *     @OA\Property(property="id", type="integer"),
+ *     @OA\Property(property="email", type="string"),
+ *     @OA\Property(property="phone", type="object",
+ *         @OA\Property(property="number", type="string"),
+ *         @OA\Property(property="verified", type="boolean"),
+ *     ),
+ *     @OA\Property(property="name", type="object",
+ *         @OA\Property(property="first", type="string"),
+ *         @OA\Property(property="last", type="string"),
+ *     ),
+ * )
+ */

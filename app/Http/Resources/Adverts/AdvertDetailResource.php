@@ -62,3 +62,40 @@ class AdvertDetailResource extends JsonResource
         ];
     }
 }
+
+/**
+ * @OA\Schema(
+ *     schema="AdvertDetail",
+ *     type="object",
+ *     @OA\Property(property="id", type="integer"),
+ *     @OA\Property(property="title", type="string"),
+ *     @OA\Property(property="content", type="string"),
+ *     @OA\Property(property="price", type="integer"),
+ *     @OA\Property(property="address", type="string"),
+ *     @OA\Property(property="date", type="object",
+ *         @OA\Property(property="published", type="date"),
+ *         @OA\Property(property="expires", type="date"),
+ *     ),
+ *     @OA\Property(property="user", type="object",
+ *         @OA\Property(property="name", type="string"),
+ *         @OA\Property(property="phone", type="string"),
+ *     ),
+ *     @OA\Property(property="category", type="object",
+ *         @OA\Property(property="id", type="integer"),
+ *         @OA\Property(property="name", type="string"),
+ *     ),
+ *     @OA\Property(property="region", type="object",
+ *         @OA\Property(property="id", type="integer"),
+ *         @OA\Property(property="name", type="string"),
+ *     ),
+ *     @OA\Property(property="values", type="array", @OA\Items(ref="#/components/schemas/AdvertValue")),
+ *     @OA\Property(property="photos", type="array", @OA\Items(type="string")),
+ * )
+ *
+ * @OA\Schema(
+ *     schema="AdvertValue",
+ *     type="object",
+ *     @OA\Property(property="name", type="string"),
+ *     @OA\Property(property="value", type="string"),
+ * )
+ */

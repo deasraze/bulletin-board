@@ -20,3 +20,13 @@ class ProfileEditRequest extends FormRequest
         ];
     }
 }
+
+/**
+ * @OA\Schema(
+ *     schema="ProfileEditRequest",
+ *     type="object",
+ *     @OA\Property(property="name", type="string"),
+ *     @OA\Property(property="last_name", type="string"),
+ *     @OA\Property(property="phone", type="string"),
+ * )
+ */
