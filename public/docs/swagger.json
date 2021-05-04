@@ -51,10 +51,7 @@
                         "description": "ID of advert",
                         "required": true,
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
+                            "type": "integer"
                         }
                     }
                 ],

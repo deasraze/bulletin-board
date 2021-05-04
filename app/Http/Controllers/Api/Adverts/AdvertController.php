@@ -56,9 +56,8 @@ class AdvertController extends Controller
      *         in="path",
      *         required=true,
      *         @OA\Schema(
-     *           type="array",
-     *         @OA\Items(type="string"),
-     *         ),
+     *             type="integer"
+     *         )
      *     ),
      *     @OA\Response(
      *         response=200,
