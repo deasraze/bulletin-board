@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 /**
  * @OA\OpenApi(
  *    @OA\Server(
- *         url="localhost:8080/api",
+ *         url="https://localhost:8080/api",
  *         description="API server"
  *     ),
  *     @OA\Info(
