@@ -2,13 +2,20 @@
     "openapi": "3.0.0",
     "info": {
         "title": "Board API",
-        "description": "HTTP JSON API",
+        "description": "HTTPS JSON API",
         "version": "1.0.0"
     },
     "servers": [
         {
             "url": "https://localhost:8080/api",
-            "description": "API server"
+            "variables": {
+                "schema": {
+                    "enum": [
+                        "https"
+                    ],
+                    "default": "https"
+                }
+            }
         }
     ],
     "paths": {

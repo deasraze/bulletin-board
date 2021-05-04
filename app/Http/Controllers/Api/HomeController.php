@@ -6,15 +6,20 @@ use App\Http\Controllers\Controller;
 
 /**
  * @OA\OpenApi(
- *    @OA\Server(
- *         url="https://localhost:8080/api",
- *         description="API server"
- *     ),
  *     @OA\Info(
  *         version="1.0.0",
  *         title="Board API",
- *         description="HTTP JSON API",
+ *         description="HTTPS JSON API",
  *     )
+ * )
+ *
+ * @OA\Server(
+ *      url="https://localhost:8080/api",
+ *      @OA\ServerVariable(
+ *          serverVariable="schema",
+ *          enum={"https"},
+ *          default="https"
+ *      )
  * )
  *
  * @OA\SecurityScheme(
