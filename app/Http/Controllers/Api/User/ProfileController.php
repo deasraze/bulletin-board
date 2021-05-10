@@ -27,7 +27,7 @@ class ProfileController extends Controller
      *         description="Success response",
      *         @OA\Schema(ref="#/components/schemas/Profile"),
      *     ),
-     *     security={{"Bearer": {}, "OAuth2": {}}}
+     *     security={{"bearerAuth": {}, "OAuth2": {}}}
      * )
      */
     public function show(Request $request): ProfileResource
@@ -44,7 +44,7 @@ class ProfileController extends Controller
      *         response=200,
      *         description="Success response",
      *     ),
-     *     security={{"Bearer": {}, "OAuth2": {}}}
+     *     security={{"bearerAuth": {}, "OAuth2": {}}}
      * )
      */
     public function update(ProfileEditRequest $request): ProfileResource

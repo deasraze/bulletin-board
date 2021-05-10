@@ -33,7 +33,7 @@ class FavoriteController extends Controller
      *         response=201,
      *         description="Success response",
      *     ),
-     *     security={{"Bearer": {}, "OAuth2": {}}}
+     *     security={{"bearerAuth": {}, "OAuth2": {}}}
      * )
      */
     public function add(Request $request, Advert $advert)
@@ -59,7 +59,7 @@ class FavoriteController extends Controller
      *         response=204,
      *         description="Success response",
      *     ),
-     *     security={{"Bearer": {}, "OAuth2": {}}}
+     *     security={{"bearerAuth": {}, "OAuth2": {}}}
      * )
      */
     public function remove(Request $request, Advert $advert)

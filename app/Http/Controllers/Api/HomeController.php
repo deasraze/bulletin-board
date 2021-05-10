@@ -32,9 +32,9 @@ use App\Http\Controllers\Controller;
  *     )
  * )
  * @OA\SecurityScheme(
- *     type="apiKey",
- *     in="header",
- *     securityScheme="bearer",
+ *     type="http",
+ *     securityScheme="bearerAuth",
+ *     scheme="bearer",
  *     name="Authorization"
  * )
  *

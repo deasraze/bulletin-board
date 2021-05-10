@@ -30,7 +30,7 @@ class FavoriteController extends Controller
      *             @OA\Items(ref="#/components/schemas/AdvertList")
      *         ),
      *     ),
-     *     security={{"Bearer": {}, "OAuth2": {}}}
+     *     security={{"bearerAuth": {}, "OAuth2": {}}}
      * )
      */
     public function index(Request $request)
@@ -56,7 +56,7 @@ class FavoriteController extends Controller
      *         response=204,
      *         description="Success response",
      *     ),
-     *     security={{"Bearer": {}, "OAuth2": {}}}
+     *     security={{"bearerAuth": {}, "OAuth2": {}}}
      * )
      */
     public function remove(Request $request, Advert $advert)

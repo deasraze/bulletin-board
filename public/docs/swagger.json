@@ -32,7 +32,7 @@
                 },
                 "security": [
                     {
-                        "Bearer": [],
+                        "bearerAuth": [],
                         "OAuth2": []
                     }
                 ]
@@ -62,7 +62,7 @@
                 },
                 "security": [
                     {
-                        "Bearer": [],
+                        "bearerAuth": [],
                         "OAuth2": []
                     }
                 ]
@@ -91,7 +91,7 @@
                 },
                 "security": [
                     {
-                        "Bearer": [],
+                        "bearerAuth": [],
                         "OAuth2": []
                     }
                 ]
@@ -118,7 +118,7 @@
                 },
                 "security": [
                     {
-                        "Bearer": [],
+                        "bearerAuth": [],
                         "OAuth2": []
                     }
                 ]
@@ -173,7 +173,7 @@
                 },
                 "security": [
                     {
-                        "Bearer": [],
+                        "bearerAuth": [],
                         "OAuth2": []
                     }
                 ]
@@ -202,7 +202,7 @@
                 },
                 "security": [
                     {
-                        "Bearer": [],
+                        "bearerAuth": [],
                         "OAuth2": []
                     }
                 ]
@@ -221,7 +221,7 @@
                 },
                 "security": [
                     {
-                        "Bearer": [],
+                        "bearerAuth": [],
                         "OAuth2": []
                     }
                 ]
@@ -248,7 +248,7 @@
                 },
                 "security": [
                     {
-                        "Bearer": [],
+                        "bearerAuth": [],
                         "OAuth2": []
                     }
                 ]
@@ -487,10 +487,10 @@
                     }
                 }
             },
-            "bearer": {
-                "type": "apiKey",
+            "bearerAuth": {
+                "type": "http",
                 "name": "Authorization",
-                "in": "header"
+                "scheme": "bearer"
             }
         }
     }

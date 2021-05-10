@@ -33,7 +33,7 @@ class AdvertController extends Controller
      *             @OA\Items(ref="#/components/schemas/AdvertList")
      *         ),
      *     ),
-     *     security={{"Bearer": {}, "OAuth2": {}}}
+     *     security={{"bearerAuth": {}, "OAuth2": {}}}
      * )
      */
     public function index(SearchRequest $request)
@@ -64,7 +64,7 @@ class AdvertController extends Controller
      *         description="Success response",
      *         @OA\Schema(ref="#/components/schemas/AdvertDetail"),
      *     ),
-     *     security={{"Bearer": {}, "OAuth2": {}}}
+     *     security={{"bearerAuth": {}, "OAuth2": {}}}
      * )
      */
     public function show(Advert $advert): AdvertDetailResource
