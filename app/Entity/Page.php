@@ -22,10 +22,6 @@ class Page extends Model
 {
     use NodeTrait;
 
-    protected $table = 'pages';
-
-    public $timestamps = false;
-
     protected $guarded = ['id'];
 
     public function getPath(): string
