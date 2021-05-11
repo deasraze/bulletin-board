@@ -2,11 +2,13 @@
 
  use App\Entity\Adverts\Advert\Advert;
  use App\Entity\Banner\Banner;
+ use App\Entity\Page;
  use App\Entity\Region;
  use App\Entity\User\User;
  use App\Entity\Adverts\Category;
  use App\Entity\Adverts\Attribute;
  use App\Http\Router\AdvertsPath;
+ use App\Http\Router\PagePath;
 
  /* Site */
  // Home
@@ -42,6 +44,15 @@
  Breadcrumbs::for('password.reset', function ($trail) {
      $trail->parent('password.request');
      $trail->push('Change', route('password.reset'));
+ });
+
+ /* Page */
+ // Home > page->title
+ Breadcrumbs::for('page', function ($trail, PagePath $path) {
+     ($parent = $path->page->parent)
+         ? $trail->parent('page', $path->withPage($parent))
+         : $trail->parent('home');
+     $trail->push($path->page->title, route('page', $path));
  });
 
  /* Adverts */
@@ -225,6 +236,36 @@
  Breadcrumbs::for('admin.adverts.adverts.reject', function ($trail, Advert $advert) {
      $trail->parent('admin.adverts.inner_advert', $advert);
      $trail->push('Reject', route('admin.adverts.adverts.reject', $advert));
+ });
+
+ /**
+  * Admin Panel:
+  * Pages
+  */
+ // Home > Admin > Pages
+ Breadcrumbs::for('admin.pages.index', function ($trail) {
+     $trail->parent('admin.home');
+     $trail->push('Pages', route('admin.pages.index'));
+ });
+
+ // Home > Admin > Pages > Create
+ Breadcrumbs::for('admin.pages.create', function ($trail) {
+     $trail->parent('admin.pages.index');
+     $trail->push('Create', route('admin.pages.create'));
+ });
+
+ // Home > Admin > Pages > $page->title
+ Breadcrumbs::for('admin.pages.show', function ($trail, Page $page) {
+     ($parent = $page->parent)
+         ? $trail->parent('admin.pages.show', $parent)
+         : $trail->parent('admin.pages.index');
+     $trail->push($page->title, route('admin.pages.show', $page));
+ });
+
+ // Home > Admin > Pages > $page->title > Edit
+ Breadcrumbs::for('admin.pages.edit', function ($trail, Page $page) {
+     $trail->parent('admin.pages.show', $page);
+     $trail->push('Edit', route('admin.pages.edit', $page));
  });
 
  /**
