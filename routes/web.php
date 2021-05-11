@@ -187,3 +187,5 @@ Route::group(
         });
     }
 );
+
+Route::get('/{page_path}', [PageController::class, 'show'])->name('page')->where('page_path', '.+');
