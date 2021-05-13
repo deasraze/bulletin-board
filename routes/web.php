@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\NetworkController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PageController;
 use App\Http\Middleware\FilledProfile;
 use Illuminate\Support\Facades\Route;
 
