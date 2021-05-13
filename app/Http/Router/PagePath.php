@@ -52,6 +52,10 @@ class PagePath implements UrlRoutable
             }
         } while (!empty($slug) && !empty($next));
 
+        if (\count($chunks) > 0) {
+            abort(404);
+        }
+
         return $this->withPage($page);
     }
 
