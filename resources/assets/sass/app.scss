@@ -9,6 +9,9 @@
 @import '~@fortawesome/fontawesome-free/scss/solid';
 @import '~@fortawesome/fontawesome-free/scss/brands';
 
+// Summernote
+@import "~summernote/dist/summernote-bs4.css";
+
 body {
     display: flex;
     flex-direction: column;
