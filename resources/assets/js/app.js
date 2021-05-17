@@ -31,3 +31,9 @@ $('.banner').each(function () {
             console.log(error);
         });
 });
+
+$(document).ready(function() {
+    $('.summernote').summernote({
+        height: 300
+    });
+});
