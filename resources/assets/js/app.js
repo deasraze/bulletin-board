@@ -32,8 +32,23 @@ $('.banner').each(function () {
         });
 });
 
-$(document).ready(function() {
-    $('.summernote').summernote({
-        height: 300
-    });
+$('.summernote').summernote({
+    height: 300,
+    callbacks: {
+        onImageUpload: function (files) {
+            let editor = $(this);
+            let form = new FormData();
+
+            form.append('file', files[0]);
+
+            axios
+                .post(editor.data('image-url'), form)
+                .then(function (response) {
+                    editor.summernote('insertImage', response.data);
+                })
+                .catch(function (error) {
+                    console.error(error);
+                });
+        }
+    }
 });
