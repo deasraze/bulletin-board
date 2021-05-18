@@ -33,9 +33,26 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav mr-auto">
                     @foreach(array_slice($menuPages, 0, 3) as $page)
+                        @if($page->children()->exists())
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle"
+                                   href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{ $page->getMenuTitle() }}
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item"
+                                       href="{{ route('page', page_path($page)) }}">{{ $page->getMenuTitle() }}</a>
+                                    @foreach ($page->children as $child)
+                                        <a class="dropdown-item"
+                                           href="{{ route('page', page_path($child)) }}">{{ $child->getMenuTitle() }}</a>
+                                    @endforeach
+                                </div>
+                            </li>
+                        @else
                         <li>
                             <a class="nav-link" href="{{ route('page', page_path($page)) }}">{{ $page->getMenuTitle() }}</a>
                         </li>
+                        @endif
                     @endforeach
                     @if($morePages = array_slice($menuPages, 3))
                         <li class="nav-item dropdown">
