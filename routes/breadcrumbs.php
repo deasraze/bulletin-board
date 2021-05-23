@@ -4,6 +4,7 @@
  use App\Entity\Banner\Banner;
  use App\Entity\Page;
  use App\Entity\Region;
+ use App\Entity\Ticket\Ticket;
  use App\Entity\User\User;
  use App\Entity\Adverts\Category;
  use App\Entity\Adverts\Attribute;
@@ -203,6 +204,28 @@
      $trail->push($region ? $region->name : 'All', route('cabinet.banners.create.banner', [$category, $region]));
  });
 
+ /**
+  * Cabinet:
+  * Tickets
+  */
+ // Home > Cabinet > Tickets
+ Breadcrumbs::for('cabinet.tickets.index', function ($trail) {
+     $trail->parent('cabinet.home');
+     $trail->push('Tickets', route('cabinet.tickets.index'));
+ });
+
+ // Home > Cabinet > Tickets > $ticket->subject
+ Breadcrumbs::for('cabinet.tickets.show', function ($trail, Ticket $ticket) {
+     $trail->parent('cabinet.tickets.index');
+     $trail->push($ticket->subject, route('cabinet.tickets.show', $ticket));
+ });
+
+ // Home > Cabinet > Tickets > Create
+ Breadcrumbs::for('cabinet.tickets.create', function ($trail) {
+     $trail->parent('cabinet.tickets.index');
+     $trail->push('Create', route('cabinet.tickets.create'));
+ });
+
  /* Admin Panel */
  // Home > Admin
  Breadcrumbs::for('admin.home', function ($trail) {
@@ -294,6 +317,28 @@
  Breadcrumbs::for('admin.banners.reject', function ($trail, Banner $banner) {
      $trail->parent('admin.banners.show', $banner);
      $trail->push('Reject', route('admin.banners.reject', $banner));
+ });
+
+ /**
+  * Admin Panel:
+  * Tickets
+  */
+ // Home > Admin > Tickets
+ Breadcrumbs::for('admin.tickets.index', function ($trail) {
+     $trail->parent('admin.home');
+     $trail->push('Tickets', route('admin.tickets.index'));
+ });
+
+ // Home > Admin > Tickets > $ticket->subject
+ Breadcrumbs::for('admin.tickets.show', function ($trail, Ticket $ticket) {
+     $trail->parent('admin.tickets.index', $ticket);
+     $trail->push($ticket->subject, route('admin.tickets.show', $ticket));
+ });
+
+ // Home > Admin > Banners > $banner->name > Edit
+ Breadcrumbs::for('admin.tickets.edit', function ($trail, Ticket $ticket) {
+     $trail->parent('admin.tickets.show', $ticket);
+     $trail->push('Edit', route('admin.tickets.edit', $ticket));
  });
 
 /**
