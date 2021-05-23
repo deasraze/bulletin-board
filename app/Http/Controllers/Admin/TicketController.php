@@ -17,6 +17,7 @@ class TicketController extends Controller
 
     public function __construct(TicketService $service)
     {
+        $this->middleware('can:manage-tickets');
         $this->service = $service;
     }
 
@@ -29,7 +30,7 @@ class TicketController extends Controller
         }
 
         if (! empty($value = $request->query('user'))) {
-            $query->where(['user' => $value]);
+            $query->where(['user_id' => $value]);
         }
 
         if (! empty($value = $request->query('status'))) {
