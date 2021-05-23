@@ -82,7 +82,7 @@ class AuthServiceProvider extends ServiceProvider
             return $user->id === $banner->user_id;
         });
 
-        Gate::define('manage-own-banner', function (User $user, Ticket $ticket) {
+        Gate::define('manage-own-ticket', function (User $user, Ticket $ticket) {
             return $user->id === $ticket->user_id;
         });
     }
