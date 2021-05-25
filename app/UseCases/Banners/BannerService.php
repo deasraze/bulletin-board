@@ -63,7 +63,7 @@ class BannerService
             ->orderByRaw('FIELD(id,' . implode(',', $ids) . ')')
             ->first();
 
-        if (!$banner) {
+        if (! $banner) {
             return null;
         }
 
@@ -100,7 +100,7 @@ class BannerService
             throw new \DomainException('Unable to edit the banner.');
         }
 
-        Storage::delete('public/' . $banner->file);
+        Storage::disk('public')->delete($banner->file);
 
         $banner->update([
             'format' => $request['format'],
@@ -189,7 +189,7 @@ class BannerService
 
         $banner->delete();
 
-        Storage::delete('public/' . $banner->file);
+        Storage::disk('public')->delete($banner->file);
     }
 
     public function removeByAdmin(int $id): void
@@ -198,7 +198,7 @@ class BannerService
 
         $banner->delete();
 
-        Storage::delete('public/' . $banner->file);
+        Storage::disk('public')->delete($banner->file);
     }
 
     private function getBanner(int $id): Banner
