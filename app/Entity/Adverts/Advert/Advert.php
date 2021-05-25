@@ -2,6 +2,7 @@
 
 namespace App\Entity\Adverts\Advert;
 
+use App\Entity\Adverts\Advert\Dialog\Dialog;
 use App\Entity\Adverts\Category;
 use App\Entity\Region;
 use App\Entity\User\User;
@@ -106,6 +107,26 @@ class Advert extends Model
         ]);
     }
 
+    public function writeClientMessage(int $fromId, string $message)
+    {
+        $this->getOrCreateDialogWith($fromId)->writeMessageByClient($fromId, $message);
+    }
+
+    public function writeOwnerMessage(int $toId, string $message)
+    {
+        $this->getDialogWith($toId)->writeMessageByOwner($this->user_id, $message);
+    }
+
+    public function readClientMessage(int $userId): void
+    {
+        $this->getDialogWith($userId)->readByClient();
+    }
+
+    public function readOwnerMessage(int $userId): void
+    {
+        $this->getDialogWith($userId)->readByOwner();
+    }
+
     public function getValue(int $id): ?string
     {
         foreach ($this->values as $value) {
@@ -167,6 +188,11 @@ class Advert extends Model
         return $this->belongsToMany(User::class, 'advert_favorites', 'advert_id', 'user_id');
     }
 
+    public function dialogs()
+    {
+        return $this->hasMany(Dialog::class);
+    }
+
     public function scopeActive(Builder $query): Builder
     {
         return $query->where('status', self::STATUS_ACTIVE);
@@ -202,5 +228,28 @@ class Advert extends Model
         return $query->whereHas('favorites', function (Builder $query) use ($user) {
             return $query->where('user_id', $user->id);
         });
+    }
+
+    private function getDialogWith(int $userId): Dialog
+    {
+        $dialog = $this->dialogs()
+            ->where(['client_id' => $userId, 'user_id' => $this->user_id])
+            ->first();
+
+        if (! $dialog) {
+            throw new \DomainException('Dialog is not found.');
+        }
+
+        return $dialog;
+    }
+
+    private function getOrCreateDialogWith(int $userId): Dialog
+    {
+        if ($this->user_id === $userId) {
+            throw new \DomainException('Cannot send message to myself.');
+        }
+
+        return $this->dialogs()
+            ->firstOrCreate(['client_id' => $userId, 'user_id' => $this->user_id]);
     }
 }
