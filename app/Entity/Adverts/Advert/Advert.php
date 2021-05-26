@@ -107,22 +107,22 @@ class Advert extends Model
         ]);
     }
 
-    public function writeClientMessage(int $fromId, string $message)
+    public function writeClientMessage(int $fromId, string $message): void
     {
         $this->getOrCreateDialogWith($fromId)->writeMessageByClient($fromId, $message);
     }
 
-    public function writeOwnerMessage(int $toId, string $message)
+    public function writeOwnerMessage(int $toId, string $message): void
     {
         $this->getDialogWith($toId)->writeMessageByOwner($this->user_id, $message);
     }
 
-    public function readClientMessage(int $userId): void
+    public function readClientMessages(int $userId): void
     {
         $this->getDialogWith($userId)->readByClient();
     }
 
-    public function readOwnerMessage(int $userId): void
+    public function readOwnerMessages(int $userId): void
     {
         $this->getDialogWith($userId)->readByOwner();
     }
