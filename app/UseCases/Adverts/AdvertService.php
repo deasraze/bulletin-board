@@ -6,17 +6,25 @@ use App\Entity\Adverts\Advert\Advert;
 use App\Entity\Adverts\Category;
 use App\Entity\Region;
 use App\Entity\User\User;
+use App\Events\Advert\ModerationPassed;
 use App\Http\Requests\Adverts\AttributesRequest;
 use App\Http\Requests\Adverts\CreateRequest;
 use App\Http\Requests\Adverts\EditRequest;
 use App\Http\Requests\Adverts\PhotoRequest;
 use App\Http\Requests\Adverts\RejectRequest;
-use App\Notifications\Advert\ModerationPassedNotification;
 use Carbon\Carbon;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Facades\DB;
 
 class AdvertService
 {
+    private Dispatcher $dispatcher;
+
+    public function __construct(Dispatcher $dispatcher)
+    {
+        $this->dispatcher = $dispatcher;
+    }
+
     public function create(int $userId, int $categoryId, ?int $regionId, CreateRequest $request): Advert
     {
         $user = User::findOrFail($userId);
@@ -89,7 +97,8 @@ class AdvertService
     {
         $advert = $this->getAdvert($id);
         $advert->moderate(Carbon::now());
-        $advert->user->notify(new ModerationPassedNotification($advert));
+
+        $this->dispatcher->dispatch(new ModerationPassed($advert));
     }
 
     public function reject(RejectRequest $request, int $id): void
