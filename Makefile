@@ -33,5 +33,8 @@ migrations:
 test:
 	docker-compose run --rm php-cli php vendor/bin/phpunit
 
+queue:
+	docker-compose run --rm php-cli php artisan queue:work
+
 memory:
 	sudo sysctl -w vm.max_map_count=262144
