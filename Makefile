@@ -36,5 +36,17 @@ test:
 queue:
 	docker-compose run --rm php-cli php artisan queue:work
 
+horizon:
+	docker-compose run --rm php-cli php artisan horizon
+
+horizon-pause:
+	docker-compose run --rm php-cli php artisan horizon:pause
+
+horizon-continue:
+	docker-compose run --rm php-cli php artisan horizon:continue
+
+horizon-terminate:
+	docker-compose run --rm php-cli php artisan horizon:terminate
+
 memory:
 	sudo sysctl -w vm.max_map_count=262144
